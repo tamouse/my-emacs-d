@@ -1,0 +1,5 @@
+(unless (package-installed-p 'color-theme)
+  (package-install 'color-theme))
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-charcoal-black)
