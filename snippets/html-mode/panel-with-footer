@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: panel-with-footer
+# key: panel
+# group: bootstrap
+# binding: direct-keybinding
+# --
+<div class="panel panel-default">
+  <div class="panel-body">
+    ${2:Panel content}$0
+  </div>
+  <div class="panel-footer">${1:Panel footer}</div>
+</div>

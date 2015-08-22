@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: feed the cats
+# key: feed
+# --
+/me feeds the cats 

@@ -1,0 +1,22 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: jekyll front matter
+# key: fm
+# binding: direct-keybinding
+# group: jekyll
+# --
+---
+layout: ${1:post}
+title: "${2:title}"
+date: ${3:`(format-time-string "%F %R")`}
+categories: [${4:"cat1"}]
+tags: [${5:"tag1", "tag2"}]
+# source:
+# thumbnail:
+# gallery:
+#   image-one:
+#     thumb:
+#     full:
+---
+${6:excerpt...}
+
+$0

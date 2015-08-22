@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: accordian
+# group: semantic
+# --
+<div class="ui accordion">
+  <div class="active title">
+    <i class="dropdown icon"></i>
+    ${1:What is a dog?}
+  </div>
+  <div class="active content">
+    <p>${2:A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.}</p>$0
+  </div>
+</div>

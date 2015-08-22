@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: butterflies-emacs
+# key: butterflies
+# --
+C-x M-c M-butterflies "Dammit, Emacs" (http://xkcd.com/378/)

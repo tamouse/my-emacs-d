@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: react-router-route
+# key: route
+# binding: direct-keybinding
+# group: react
+# --
+<Route name="${1:name}" path="${2:path}" handler={${3:handler}\}/>

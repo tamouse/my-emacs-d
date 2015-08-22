@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: liquid-tag
+# key: lt
+# group: liquid
+# binding: direct-keybinding
+# --
+{% $0 %}

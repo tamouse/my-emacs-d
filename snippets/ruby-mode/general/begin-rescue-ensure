@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: begin-rescue-ensure
+# key: bre
+# group: general
+# --
+begin
+${1:# code...}
+rescue ${2:Exception => e}
+${3:# code... }
+${4:ensure
+${5:# code... }}
+end

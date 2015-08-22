@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: glyphicon
+# key: glyphicon
+# group: bootstrap
+# --
+<b class="glyphicon glyphicon-${1:phone}"></b>${2:<!-- find icons at http://getbootstrap.com/components/#glyphicons -->}

@@ -1,0 +1,17 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: react-app-skeleton
+# key: app
+# binding: direct-keybinding
+# group: react
+# --
+var React = require('react');
+
+var App = React.createClass({
+  render () {
+    return (
+      <div>
+        $0
+      </div>
+    );
+  }
+});

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rspec_it
+# key: it
+# group: testing
+# --
+it "${1:do something}" do
+  $0
+end

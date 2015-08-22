@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: capture
+# key: capture
+# binding: direct-keybinding
+# --
+{% capture ${1:variable}}$0{% endcapture %}

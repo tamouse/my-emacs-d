@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: reject do |...| ... end
+#contributor: Tamara Temple <tamouse@gmail.com>
+#group : collections
+# --
+reject do |${1:vars}|
+$0
+end

@@ -15,6 +15,7 @@
 (mapc 'load
       '(
 	"personal"
+	"my-yasnippets"
 	"my-misc-packages"
 	"my-js-mode"
 	"my-elixir"

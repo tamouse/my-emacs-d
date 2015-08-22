@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: jq-ready
+# key: jqready
+# --
+$(function() {
+$0
+});

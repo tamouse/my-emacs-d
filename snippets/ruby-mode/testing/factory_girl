@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: factory_girl define factory
+# key: fgdef
+# group: testing
+# --
+FactoryGirl.define do
+  factory ${1:name} do
+    ${2:field} ${3:value}$0
+  end
+end

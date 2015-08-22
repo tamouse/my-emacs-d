@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: debug with caller
+# key: dbgc
+# group: general
+# --
+debug "#{caller(0,1).first}: $0"

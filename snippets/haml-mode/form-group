@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bootstrap horizontal form-group
+# key: form-group
+# binding: direct-keybinding
+# --
+.form-group
+  .col-sm-2.control-label= f.label ${1:field}
+  .col-sm-10
+    = f.${2:text_field} $1, placeholder: "${3:Place holder text}", class: "form-control"

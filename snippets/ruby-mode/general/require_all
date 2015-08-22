@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: require all ruby files starting from current directory
+# key: reqall
+# group: general
+# --
+Dir[File.join(File.expand_path('../', __FILE__),'**','*.rb')].each {|file| require file}

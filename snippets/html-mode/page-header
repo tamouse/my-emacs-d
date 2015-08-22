@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: page-header
+# key: ph
+# group: bootstrap
+# binding: direct-keybinding
+# --
+<header class="page-header">
+  <h${1:2}>${2:Header}${3: <small>${4:sub header}</small>}</h$1>$0
+</header>

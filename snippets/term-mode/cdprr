@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: cdprr
+# key: cdprr
+# binding: direct-keybinding
+# --
+pushd ~/Projects/rubystuff/railsapp/

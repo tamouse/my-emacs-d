@@ -19,5 +19,6 @@
 (setq
  projectile-completion-system 'helm
  projectile-switch-project-action 'projectile-dired
+ projectile-find-dir-includes-top-level t
  projectile-mode-line '(:eval (format " Prj[%s]" (projectile-project-name)))
  )

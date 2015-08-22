@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# contributor: Tamara Temple <tamouse@gmail.com>
+# name: strong
+# key: strong
+# group: typography
+# binding: direct-keybinding
+# --
+<strong$1>$0</strong>

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: expect {subject}.to
+# key: expproc
+# group: testing
+# --
+expect {${1:subject}}.${2:not_}to $0

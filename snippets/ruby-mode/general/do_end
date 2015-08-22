@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: do_end
+# key: do
+# group: general
+# --
+do${1: |${2:var}|}
+  $0
+end

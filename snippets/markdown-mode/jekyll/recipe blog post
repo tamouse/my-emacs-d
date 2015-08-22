@@ -1,0 +1,22 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: recipe blog post
+# key: recipe
+# group: jekyll
+# --
+---
+layout: post
+title: ${1:title}
+external_url ${2:source url}
+categories: [${3:category}]
+tags: [${4:tags}]
+---
+$0
+
+## Ingredients
+
+*
+
+## Directions
+
+1.
+

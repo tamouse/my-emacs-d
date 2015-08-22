@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: section
+# key: section
+# binding: direct-keybinding
+# group: sectioning
+# --
+<section$1>$0</section>

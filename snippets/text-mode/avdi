@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Avdi Grimm link
+# key: Avdi
+# binding: direct-keybinding
+# --
+[Avdi](http://about.avdi.org)

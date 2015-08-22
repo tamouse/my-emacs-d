@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: markup
+# key: markup
+# --
+(:markup:)
+$0
+(:markupend:)

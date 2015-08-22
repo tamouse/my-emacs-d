@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rspec describe
+# key: describe
+# group: testing
+# --
+describe ${1:Module} do
+  $0
+end

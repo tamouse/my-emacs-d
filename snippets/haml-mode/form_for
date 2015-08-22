@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bootstrap horizontal form_for
+# key: form_for
+# binding: direct-keybinding
+# --
+= form_for ${1:object}, html: {class: "form-horizontal"} do |f|

@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bootstrappy-quote
+# key: bq
+# binding: direct-keybinding
+# --
+
+<blockquote>
+  <p>$0${1:Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.}</p>
+  <footer>${2:Someone famous in <cite title="${3:Source Title}">$3</cite>}</footer>
+</blockquote>

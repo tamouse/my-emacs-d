@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: liquid tag
+# group: liquid
+# --
+{% $0 %

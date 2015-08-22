@@ -1,0 +1,17 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: media.object
+# key: mo
+# group: bootstrap
+# binding: direct-keybinding
+# --
+<div class="media">
+  <div class="media-left">
+    <a href="${1:#}">
+      <img class="media-object" src="${2:...}" alt="${3:...}">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">${4:Media heading}</h4>
+    $0
+  </div>
+</div>

@@ -1,0 +1,23 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: full table
+# key: fulltbl
+# group: table
+# binding: direct-keybinding
+# --
+<table>
+  <thead>
+    <tr>
+      <th>$1</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>$2</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr>
+      <td>$3</td>
+    </tr>
+  </tbody>
+</table>

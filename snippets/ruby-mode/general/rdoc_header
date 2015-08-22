@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: rdoc file header
+# key: rdoc
+# group: general
+# --
+=begin rdoc
+
+${1:`(file-name-nondirectory (buffer-file-name))`} -- ${2:oneline desc}
+
+Time-stamp: <>
+Copyright (C) ${3:`(format-time-string "%Y" (current-time))`} ${4:`(if user-organization user-organization user-full-name)`}
+Author:     ${5:`user-full-name`} <${6:`user-mail-address`}>
+License:    ${7:MIT}
+
+== Discussion
+
+$8
+
+=end

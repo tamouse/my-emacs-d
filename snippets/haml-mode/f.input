@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: f.text_field
+# key: f.text_field
+# --
+.form-label.clear-left${1:.required}= ${3:f}.label :${2:field}, t('.$2')
+= $3.text_field :$2

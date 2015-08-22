@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ERB Replace
+# key: %=
+# group: erb
+# --
+<%= $0 %>

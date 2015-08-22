@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: factory_girl_factory
+# key: factory
+# binding: direct-keybinding
+# group: factory_girl
+# --
+
+factory :${1:factory_name} ${2:options} do
+  $0
+end
