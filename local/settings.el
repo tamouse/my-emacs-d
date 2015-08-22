@@ -12,9 +12,9 @@
                                   indentation space-after-tab)
       whitespace-line-column 100
       ediff-window-setup-function 'ediff-setup-windows-plain
-      oddmuse-directory (concat starter-kit-dir "oddmuse")
+      oddmuse-directory "~/.emacs.d/oddmuse"
       xterm-mouse-mode t
-      save-place-file (concat starter-kit-dir "places")
+      save-place-file "~/.emacs.d/places"
       fill-column 80
       ido-auto-merge-delay-time 3
       netrc-file "~/.netrc"
@@ -33,7 +33,7 @@
  backup-directory-alist
  `(("." .
     ,(expand-file-name
-      (concat starter-kit-dir "backups"))
+      (concat "~/.emacs.d/backups"))
     )
    )
  )

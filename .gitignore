@@ -1,1 +1,4 @@
 elpa/
+auto-save-list/
+projectile-bookmarks.eld
+.DS_Store

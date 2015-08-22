@@ -13,17 +13,18 @@
   )
 
 (mapc 'load
-      '("settings"
-	"key-bindings"
-	"my-themes"
-	"my-helm-projectile"
-	"my-functions"
-	"my-org-setup"
-	"my-ruby"
-	"my-elixir"
-	"my-js-mode"
-	"my-misc-packages"
+      '(
 	"personal"
+	"my-misc-packages"
+	"my-js-mode"
+	"my-elixir"
+	"my-ruby"
+	"my-org-setup"
+	"my-functions"
+	"my-helm-projectile"
+	"my-themes"
+	"key-bindings"
+	"settings"
 	)
       )
 
