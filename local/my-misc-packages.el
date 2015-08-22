@@ -6,6 +6,10 @@
 	 stylus-mode
 	 markdown-mode
 	 feature-mode
+	 yaml-mode
+	 haml-mode
+	 slim-mode
+	 web-mode
        ))
 
 (require 'magit)
