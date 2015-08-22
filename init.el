@@ -33,4 +33,4 @@
 (unless (server-running-p)
   (server-start))
 
-(put 'narrow-to-region 'disablled nil)
+(put 'narrow-to-region 'disabled nil)
