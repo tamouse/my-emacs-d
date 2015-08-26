@@ -1,16 +1,17 @@
 (mapc 'package-install-if-needed
-       '(magit
-	 lorem-ipsum
-	 sass-mode
-	 scss-mode
-	 stylus-mode
-	 markdown-mode
-	 feature-mode
-	 yaml-mode
-	 haml-mode
-	 slim-mode
-	 web-mode
-       ))
+      '(magit
+	lorem-ipsum
+	sass-mode
+	scss-mode
+	stylus-mode
+	markdown-mode
+	feature-mode
+	yaml-mode
+	haml-mode
+	slim-mode
+	web-mode
+	f
+	))
 
 (require 'magit)
 (global-set-key (kbd "C-c m")   'magit-status)

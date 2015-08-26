@@ -7,6 +7,7 @@
 (global-set-key (kbd "C-x \\")	'align-regexp)
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)

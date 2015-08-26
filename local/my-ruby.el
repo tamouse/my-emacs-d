@@ -1,4 +1,6 @@
+(package-install-if-needed 'ruby-tools)
 (require 'ruby-mode)
+(require 'ruby-tools)
 (setq
  ruby-comment-column 40
  ruby-deep-arglist nil
