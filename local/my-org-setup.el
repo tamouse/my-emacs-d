@@ -13,13 +13,16 @@
          (file (concat org-directory "notes.org"))
          "* %?\n  %x\n  captured_on: %U\n" :empty-lines 1)
         ("j" "Journal Entry" entry
-         (file+datetree+prompt (concat org-directory "journal.org" ) )
-         "* %^{headline}\n" :clock-in t :clock-resume t)
+         (file+datetree (concat org-directory "journal.org" ) )
+         "* %?\n" :clock-in t :clock-resume t)
         ("n" "note" entry
          (file (concat org-directory "notes.org"))
          "* %?\n\n  capture date: %U\n" :empty-lines 1)
         ("p" "Process Journal Entry" entry
          (file+datetree (concat org-directory "process_journal.org"))
+         "* %?\n  captured_on: %U\n\n  " :empty-lines 1)
+        ("l" "Link Journal Entry" entry
+         (file+datetree (concat org-directory "link_journal.org"))
          "* %?\n  captured_on: %U\n\n  " :empty-lines 1)
         ("q" "Quotes" entry
          (file (concat org-directory "quotes.org"))
