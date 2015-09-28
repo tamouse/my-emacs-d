@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: viewport
+# key: viewport
+# group: meta
+# --
+<meta name="${1:viewport}" content="${2:width=${3:device-width}, initial-scale=${4:1}}">
