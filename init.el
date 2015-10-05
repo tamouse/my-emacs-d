@@ -1,4 +1,9 @@
 (require 'package)
+
+;; For packages installed by homebrew
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/use-package/"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/local/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
