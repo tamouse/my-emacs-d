@@ -1,3 +1,15 @@
+;;; make closing a buffer/window on an edited file easier
+;;; (I have this finger-wired to ^x ^c)
+(defun save-current-buffer-and-kill ()
+    "thisandthat."
+  (interactive)
+  (progn
+    (if (buffer-file-name)
+	(save-buffer)
+      nil)
+    (kill-buffer))
+  )
+
 ;;; return the time as YYYY-MM-DD HH:MM
 (defun jekyll-time-string ()
   "Return the current time or given time in epoc seconds as a string used by Jekyll posts: YYYY-MM-DD HH:MM"
