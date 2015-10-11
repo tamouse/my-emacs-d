@@ -18,6 +18,7 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 (define-key global-map "\C-x\C-r" 'rgrep)
+(global-set-key (kbd "C-x m") 'mu4e)
 
 ;; these just piss me off
 (global-unset-key (kbd "C-z"))
