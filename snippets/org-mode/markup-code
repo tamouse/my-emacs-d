@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: markup-code
+# key: =
+# group: markup
+# --
+=${1:code}=$0
