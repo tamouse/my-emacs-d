@@ -6,30 +6,50 @@
 (setq org-capture-templates
       (quote
        (
-        ("I" "Insulin taken" entry
+	("p" "Templates for personal care")
+        ("pi" "Insulin taken" entry
          (file+datetree+prompt (concat org-directory "personal_care.org"))
-         "* Insulin Taken %U %?")
-        ("M" "Meds taken" entry
+         "* Insulin Taken %U %?"
+	 :immediate-finish t
+	 :empty-lines 1)
+        ("pm" "Meds taken" entry
          (file+datetree+prompt (concat org-directory "personal_care.org"))
-         "* Meds taken %U %?")
-        ("j" "Journal Entry" entry
+         "* Meds taken %U %?"
+	 :immediate-finish t
+	 :empty-lines 1)
+	("j" "Templates for journal capture")
+        ("jj" "Journal Entry" entry
          (file+datetree (concat org-directory "journal.org" ) )
-         "* %?\n" :clock-in t :clock-resume t)
+         "* %?\n"
+	 :clock-in t
+	 :clock-resume t
+	 :empty-lines 1)
+        ("jp" "Process Journal Entry" entry
+         (file+datetree (concat org-directory "process_journal.org"))
+         "* %?\n  captured_on: %U\n\n  "
+	 :clock-in t
+	 :clock-resume t
+	 :empty-lines 1)
+        ("jl" "Link Journal Entry" entry
+         (file+datetree (concat org-directory "link_journal.org"))
+         "* %?\n  captured_on: %U\n\n  "
+	 :clock-in t
+	 :clock-resume t
+	 :empty-lines 1)
         ("n" "note" entry
          (file (concat org-directory "notes.org"))
-         "* %?\n\n  capture date: %U\n" :empty-lines 1)
-        ("p" "Process Journal Entry" entry
-         (file+datetree (concat org-directory "process_journal.org"))
-         "* %?\n  captured_on: %U\n\n  " :empty-lines 1)
-        ("l" "Link Journal Entry" entry
-         (file+datetree (concat org-directory "link_journal.org"))
-         "* %?\n  captured_on: %U\n\n  " :empty-lines 1)
+         "* %?\n\n  capture date: %U\n"
+	 :empty-lines 1)
         ("q" "Quotes" entry
          (file (concat org-directory "quotes.org"))
-         "* %^{Headline:}\n%i\n%a\n" :empty-lines 1)
+         "* %^{Headline:}\n%i\n%a\n"
+	 :empty-lines 1)
         ("t" "todo" entry
          (file (concat org-directory "inbox.org"))
-         "** TODO %?\n\n  created_at: %U\n" :clock-in t :clock-resume t)
+         "** TODO %?\n\n  created_at: %U\n"
+	 :clock-in t
+	 :clock-resume t
+	 :empty-lines 1)
         )))
 
 (setq org-export-backends (quote (ascii html icalendar latex md)))
