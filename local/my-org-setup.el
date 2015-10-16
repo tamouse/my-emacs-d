@@ -6,12 +6,12 @@
 (setq org-capture-templates
       (quote
        (
-        ("P" "Personal Care (Insulin, Glucode, Medications, etc)" entry
+        ("I" "Insulin taken" entry
          (file+datetree+prompt (concat org-directory "personal_care.org"))
-         "* %U %?")
-        ("c" "Capture Clipboard" entry
-         (file (concat org-directory "notes.org"))
-         "* %?\n  %x\n  captured_on: %U\n" :empty-lines 1)
+         "* Insulin Taken %U %?")
+        ("M" "Meds taken" entry
+         (file+datetree+prompt (concat org-directory "personal_care.org"))
+         "* Meds taken %U %?")
         ("j" "Journal Entry" entry
          (file+datetree (concat org-directory "journal.org" ) )
          "* %?\n" :clock-in t :clock-resume t)
@@ -27,12 +27,9 @@
         ("q" "Quotes" entry
          (file (concat org-directory "quotes.org"))
          "* %^{Headline:}\n%i\n%a\n" :empty-lines 1)
-        ("s" "selection" entry
-         (file (concat org-directory "notes.org"))
-         "* %? %^g\n  %i\n  captured_on: %U\n" :empty-lines 1)
         ("t" "todo" entry
          (file (concat org-directory "inbox.org"))
-         "* TODO %?\n  created_on: %U\n  link: %a\n" :clock-in t :clock-resume t)
+         "** TODO %?\n\n  created_at: %U\n" :clock-in t :clock-resume t)
         )))
 
 (setq org-export-backends (quote (ascii html icalendar latex md)))
