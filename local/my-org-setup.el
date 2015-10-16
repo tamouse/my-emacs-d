@@ -33,8 +33,6 @@
         ("jl" "Link Journal Entry" entry
          (file+datetree (concat org-directory "link_journal.org"))
          "* %?\n  captured_on: %U\n\n  "
-	 :clock-in t
-	 :clock-resume t
 	 :empty-lines 1)
         ("n" "note" entry
          (file (concat org-directory "notes.org"))

@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: nc
+# key: nc
+# binding: direct-keybinding
+# --
+* [${1:file}](#$1)$0
+
+## $1
+Source: [$1](https://github.com/ackmann-dickenson/natcam/tree/master/shell/$1)
