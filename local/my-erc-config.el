@@ -1,5 +1,5 @@
 (require 'erc)
-(setq 
+(setq
  erc-hide-list '("JOIN" "PART" "QUIT")
  erc-kill-buffer-on-part t
  erc-kill-queries-on-quit t
@@ -11,7 +11,7 @@
 				"#callahans"
 				"#RubyOnRails"
 				"#rubyonrails-offtopic"
-				"#ruby.mn")
+				)
 			       ("foonetic.net" "#xkcdfurs"))
  erc-autojoin-delay 5
  erc-modules '(autoaway autojoin button completion fill irccontrols
