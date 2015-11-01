@@ -1,11 +1,13 @@
 (require 'mu4e)
 
 ;; default
-;; (setq mu4e-maildir "~/Maildir")
+;; (setq mu4e-maildir "~/Maildir/tamouse")
 
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
+(setq mu4e-drafts-folder "/tamouse/Drafts"
+      mu4e-sent-folder   "/tamouse/Sent Mail"
+      mu4e-trash-folder  "/tamouse/Trash"
+      user-mail-address "tamouse@gmail.com"
+      )
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -20,10 +22,11 @@
 ;; the 'All Mail' folder by pressing ``ma''.
 
 (setq mu4e-maildir-shortcuts
-    '( ("/INBOX"               . ?i)
-       ("/[Gmail].Sent Mail"   . ?s)
-       ("/[Gmail].Trash"       . ?t)
-       ("/[Gmail].All Mail"    . ?a)))
+      '(("/tamouse"       . ?t)
+	("/tamouse.lists" . ?l)
+	("/other"         . ?O)
+	("/archive"  . ?a)
+	))
 
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "fetchmail")
@@ -65,10 +68,48 @@
 
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it
-    smtpmail-stream-type 'starttls
-    smtpmail-default-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-service 587)
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
+
+(setq my-mu4e-account-alist
+  '(("/tamouse"
+     (mu4e-drafts-folder "/tamouse/Drafts")
+     (mu4e-sent-folder   "/tamouse/Sent Mail")
+     (mu4e-trash-folder  "/tamouse/Trash")
+     (user-mail-address "tamouse@gmail.com")
+     (smtpmail-smtp-user "tamouse@gmail.com")
+     )
+    ("/tamouse.lists"
+     (mu4e-drafts-folder "/tamouse.lists/Drafts")
+     (mu4e-sent-folder   "/tamouse.lists/Sent Mail")
+     (mu4e-trash-folder  "/tamouse.lists/Trash")
+     (user-mail-address "tamouse.lists@gmail.com")
+     (smtpmail-smtp-user "tamouse.lists@gmail.com")
+     )
+    )
+  )
+
+
+(defun my-mu4e-set-account ()
+  "Set the account for composing a message."
+  (let* ((account
+	  (if mu4e-compose-parent-message
+	      (mu4e-message-field mu4e-compose-parent-message :maildir)
+	    (completing-read (format "Compose with account: (%s) "
+				     (mapconcat #'(lambda (var) (car var))
+						my-mu4e-account-alist "/"))
+			     (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+			     nil t nil nil (caar my-mu4e-account-alist))))
+	 (account-vars (cdr (assoc account my-mu4e-account-alist))))
+    (if account-vars
+	(mapc #'(lambda (var)
+		  (set (car var) (cadr var)))
+	      account-vars)
+      (error "No email account found"))))
+
+(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
