@@ -20,6 +20,7 @@
 (mapc 'load
       '(
 	"personal"
+	"my-clojure"
 	"my-mu4e-setup"
 	"my-erc-config"
 	"my-yasnippets"

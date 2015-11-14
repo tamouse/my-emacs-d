@@ -49,9 +49,9 @@
 
 ;; Viewing html mail
 (require 'mu4e-contrib)
-;;(setq mu4e-html2text-command 'mu4e-shr2text)
+(setq mu4e-html2text-command 'mu4e-shr2text)
 ;;(setq mu4e-html2text-command "pandoc -f html -t plain")
-(setq mu4e-html2text-command "html2text -nobs -utf8")
+;;(setq mu4e-html2text-command "html2text -nobs -utf8")
 
 
 ;; sending mail -- replace USERNAME with your gmail username
