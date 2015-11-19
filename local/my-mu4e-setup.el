@@ -10,7 +10,7 @@
       )
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
+;;(setq mu4e-sent-messages-behavior 'delete) ; fetchmail never brings them back!
 
 ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
 ;; additional non-Gmail addresses and want assign them different
