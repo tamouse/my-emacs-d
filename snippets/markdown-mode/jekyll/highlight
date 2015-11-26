@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: highlight
+# key: highlight
+# group : jekyll
+# binding: direct-keybinding
+# --
+
+{% highlight ${1:lang} %}
+$0
+{% endhighlight %}

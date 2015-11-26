@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: ERB Insert
-# key: %
-# group: erb
-# --
-<% $0 %>

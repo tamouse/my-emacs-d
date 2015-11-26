@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: bench
 # key: bench
+# group: benchmarking
 # --
 require "benchmark"
 

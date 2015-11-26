@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: underline markup
+# key: u
+# group: markup
+# --
+_${1:underlined}_$0

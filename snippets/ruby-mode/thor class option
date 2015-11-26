@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: thor class option
+# key: cop
+# group: thor
+# binding: direct-keybinding
+# --
+class_option :${1:option}, desc: "${2:help description}", type: :${3:string|numeric|array|hash|boolean}${4:, ${5:aliases: "${6:-x}"}}${7:, ${8:default: "${9:x}"}}$0

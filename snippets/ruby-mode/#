@@ -1,4 +1,6 @@
-#name : # =>
-#group : general
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: # =>
+# key: #
+# group : general
 # --
-# => 
+# =>

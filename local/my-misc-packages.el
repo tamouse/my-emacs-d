@@ -1,5 +1,7 @@
 (mapc 'package-install-if-needed
-      '(magit
+      '(
+	polymode
+	magit
 	lorem-ipsum
 	sass-mode
 	scss-mode
@@ -37,8 +39,11 @@
 (require 'stylus-mode)
 
 (require 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.\\(md\\|markdown\\)" . markdown-mode))
 
 (setq feature-default-language "en")
 (require 'feature-mode)
 (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
+
+(require 'polymode)
+;;(require 'poly-markdown+yaml)
+(add-to-list 'auto-mode-alist '("\\.\\(md\\|markdown\\)" . poly-markdown-mode))

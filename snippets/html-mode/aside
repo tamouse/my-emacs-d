@@ -1,7 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: aside
-# key: aside
-# group: sectioning
-# binding: direct-keybinding
-# --
-<aside$1>$0</aside>

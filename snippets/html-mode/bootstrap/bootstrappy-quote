@@ -1,0 +1,13 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bootstrappy-quote
+# key: bq
+# group: bootstrap
+# binding: direct-keybinding
+# --
+
+<blockquote${4: class="blockquote-reverse"}>
+  <p>${1:Pithy Quote.}</p>
+  <footer>${2:<cite title="${3:source}">$3</cite>}</footer>
+</blockquote>
+
+$0

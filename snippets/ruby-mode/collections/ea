@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: each {|...| ...}
+# key: ea
+# group: collections
+# binding: direct-keybinding
+# --
+each { |${e}| $0 }

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: test class
+# key: tc
+# group: testing
+# --
+class ${1:Class}Test < Minitest::Test
+$0
+end

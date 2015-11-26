@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: strikethru markup
+# key: +
+# group: markup
+# --
+`+${1:delete}+'$0

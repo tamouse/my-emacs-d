@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: snippet header
+# key: snippet
+# binding: direct-keybinding
+# --
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ${1:snippet title}
+# key: ${2:trigger}${3:
+# group: ${4:group}}${5:
+# binding: ${6:direct-keybinding}}
+# --
+$0

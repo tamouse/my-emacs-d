@@ -1,6 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: jekyll time stamp
-# key: time
+# key: jdate
 # binding: direct-keybinding
 # --
 `(format-time-string "%F %H:%M")`
