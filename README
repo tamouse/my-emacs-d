@@ -3,3 +3,10 @@ personal .emacs.d/ to remove the dependence on the
 emacs24-starter-kit. Now it's just me against the world, baby!
 
 <tamouse@gmail.com>
+
+Shouldn't really need to say this, BUT:
+
+DON'T JUST INSTALL THIS WITHOUT UNDERSTANDING IT!
+
+These are *my* emacs configuration files. Fork them if you'd like, but
+make sure they are really what you want. (They probably aren't!)
