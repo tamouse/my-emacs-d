@@ -95,7 +95,6 @@
     )
   )
 
-
 (defun my-mu4e-set-account ()
   "Set the account for composing a message."
   (let* ((account
@@ -111,6 +110,8 @@
 	(mapc #'(lambda (var)
 		  (set (car var) (cadr var)))
 	      account-vars)
-      (error "No email account found"))))
+      (mapc #'(lambda (var)
+		 (set (car var) (cadr var)))
+	    (cdar my-mu4e-account-alist)))))
 
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
