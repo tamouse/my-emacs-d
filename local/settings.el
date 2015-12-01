@@ -1,4 +1,4 @@
-(setq visible-bell t
+(setq visible-bell nil
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
       inhibit-startup-message t
@@ -20,11 +20,6 @@
       netrc-file "~/.netrc"
       )
 
-(menu-bar-mode t)
-(global-linum-mode t)
-(electric-pair-mode t)
-(auto-compression-mode t)
-(show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -37,3 +32,23 @@
     )
    )
  )
+
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (blink-cursor-mode -1)
+  (when (require 'mwheel nil 'no-error) (mouse-wheel-mode t)))
+
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(auto-compression-mode t)
+(recentf-mode 1)
+(menu-bar-mode t)
+(global-linum-mode t)
+(electric-pair-mode t)
+(auto-compression-mode t)
+(show-paren-mode 1)
+
+(when (boundp 'hippie-expand-try-functions-list)
+  (delete 'try-expand-line hippie-expand-try-functions-list)
+  (delete 'try-expand-list hippie-expand-try-functions-list))

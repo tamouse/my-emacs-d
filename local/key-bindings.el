@@ -1,7 +1,7 @@
 (global-set-key (kbd "C-x C-c") 'save-current-buffer-and-kill)
 (global-set-key (kbd "M-SPC")	'fixup-whitespace)
 (global-set-key (kbd "C-x C-o") 'delete-blank-lines)
-(global-set-key (kbd "C-c C-f")	'auto-fill-mode)
+(global-set-key (kbd "C-c C-x C-f") 'auto-fill-mode)
 (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
 (global-set-key (kbd "C-x C-i") 'indent-buffer)
 (global-set-key (kbd "C-x \\")	'align-regexp)
@@ -13,13 +13,24 @@
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 (define-key global-map "\C-x\C-r" 'rgrep)
-(global-set-key (kbd "C-x m") 'mu4e)
+(global-set-key (kbd "C-x C-m C-m") 'mu4e)
 
 ;; these just piss me off
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
+
+;;; from old emacs24 starter kit
+(windmove-default-keybindings) ;; Shift+direction
+(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
+(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
+(define-key isearch-mode-map (kbd "C-o")
+  (lambda () (interactive)
+    (let ((case-fold-search isearch-case-fold-search))
+      (occur (if isearch-regexp
+                 isearch-string
+               (regexp-quote isearch-string))))))
