@@ -21,8 +21,6 @@
       '(
 	"personal"
 	"my-clojure"
-	"my-mu4e-setup"
-	"my-erc-config"
 	"my-yasnippets"
 	"my-misc-packages"
 	"my-js-mode"
@@ -31,15 +29,11 @@
 	"my-org-setup"
 	"my-functions"
 	"my-helm-projectile"
-	"my-themes"
 	"key-bindings"
 	"settings"
 	)
       )
 
-(require 'server)
-(unless (server-running-p)
-  (server-start))
 
 (put 'narrow-to-region 'disabled nil)
 (custom-set-variables

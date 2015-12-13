@@ -1,3 +1,4 @@
+(package-install-if-needed 'mu4e)
 (require 'mu4e)
 
 ;; default
