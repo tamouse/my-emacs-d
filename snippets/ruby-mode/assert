@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: assert
+# key: as
+# binding: direct-keybinding
+# group: minitest assertions
+# --
+assert ${1:expected}${2:, "${3:Oops!}"}

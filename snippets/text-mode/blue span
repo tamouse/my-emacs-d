@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: blue span
+# key: blue
+# binding: direct-keybinding
+# group: reveal slides
+# --
+<span class="${1:blue}">$0</span>

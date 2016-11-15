@@ -1,0 +1,4 @@
+#name : one? { |...| ... }
+#group : collections
+# --
+one? { |${2:injection}, ${3:element}| $0 }

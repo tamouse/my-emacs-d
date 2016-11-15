@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: isTDDDead?
+# key: isTDDDead
+# binding: direct-keybinding
+# --
+is TDD Dead? discussion with DHH, Kent Beck, and Martin Fowler: http://martinfowler.com/articles/is-tdd-dead/

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rspec_context
+# key: context
+# group: testing
+# --
+context "${1:context}" do
+  $0
+end

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: button
+# key: button
+# group: forms
+# --
+<button$1>$0</button>

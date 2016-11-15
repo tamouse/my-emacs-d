@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: charset utf-8
+# key: meta
+# group : head
+# binding: direct-keybinding
+# --
+<meta charset="utf-8">

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: debug with caller
+# key: dwc
+# group: general
+# --
+debug "#{caller(0,1).first}: $0"

@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: getInitialState
+# key: gis
+# binding: direct-keybinding
+# group: react
+# --
+getInitialState () {
+  return {
+    // insert your state object here
+    $0 
+  };
+},

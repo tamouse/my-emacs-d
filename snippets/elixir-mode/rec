@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: receive
+# --
+receive do
+$0
+end

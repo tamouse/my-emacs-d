@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: downto
+# key: dow
+# group: control structure
+# --
+downto(${0}) do |${n}|
+  $0
+end

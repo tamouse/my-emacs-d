@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: include
+# key: include
+# group : jekyll
+# binding: direct-keybinding
+# --
+{% include ${1:include_file}${2: ${3:param=value}} %}

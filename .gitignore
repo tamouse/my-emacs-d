@@ -1,0 +1,12 @@
+.trello
+elpa/
+auto-save-list/
+projectile-bookmarks.eld
+.DS_Store
+backups/
+/bookmarks
+*cache*
+url/
+eshell/
+recentf
+pontiki-init.el

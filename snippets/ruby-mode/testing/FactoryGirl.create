@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: FactoryGirl.create
+# key: fgc
+# group : testing
+# binding: direct-keybinding
+# --
+FactoryGirl.create($0)

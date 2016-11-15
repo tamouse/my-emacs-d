@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: two-column-table-with-headers
+# key: table2
+# binding: direct-keybinding
+# --
+| ${1:Heading 1} | ${2:Heading 2} |
+|:--------------:|:--------------:|
+| ${3:cell 1} | ${4:cell 2}|

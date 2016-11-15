@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: italic markup
+# key: /
+# group: markup
+# --
+/${1:italic}/$0

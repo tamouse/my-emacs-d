@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: receive...
+# key: rec
+# group: testing
+# --
+receive(${1::method})${2:.with(${3:parameters})}${4:.exactly(${5:n})}${6:.times}${7:.and_return(${8:true})}

@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ActiveSupport::TestCas
+# key: astest
+# group: Rails
+# binding: direct-keybinding
+# --
+class ${1:Model}Test < ::ActiveSupport::TestCase
+
+  def setup
+    $0
+  end
+
+
+end

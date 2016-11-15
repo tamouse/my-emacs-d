@@ -1,0 +1,11 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: href blank title
+# key: hrefb
+# binding: direct-keybinding
+# --
+<a href="${1:link}"
+   target="${2:_blank}"
+   title="${3:tooltip}"$0
+   >
+  ${4:text}
+</a>

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: defmodule
+# --
+defmodule ${1:Module} do
+$0
+end

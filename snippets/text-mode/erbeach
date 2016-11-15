@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: erbeach
+# group: erb
+# key: erbe
+# --
+<% ${1:collection}.each do |${2:item}| %>
+$0
+<% end %>

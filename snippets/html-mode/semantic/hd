@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: horizontal icon divider
+# group: semantic
+# --
+<div class="ui horizontal icon divider">
+  <i class="circular ${1:heart} icon"></i>
+</div>

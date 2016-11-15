@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: defmacro
+# --
+defmacro ${1:Macro()} do
+$0
+end

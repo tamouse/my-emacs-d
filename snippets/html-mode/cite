@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: cite
+# key: cite
+# binding: direct-keybinding
+# group: typography
+# --
+<cite>$0</cite>

@@ -1,0 +1,4 @@
+# key: lne
+# name: external markdown link
+# --
+[${1:text}](${2:href}${3: "${4:title}"})$0\{:target="_blank"\}

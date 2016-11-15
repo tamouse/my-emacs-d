@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: liquid include quote id
+# key: liq
+# group : liquid
+# binding: direct-keybinding
+# --
+{% include quote.html id="${1:quote_id}" %}

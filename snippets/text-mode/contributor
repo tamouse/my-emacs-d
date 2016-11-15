@@ -1,0 +1,4 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: contributor
+# --
+`(yas-with-comment "")`contributor: `user-full-name` <`user-mail-address`>

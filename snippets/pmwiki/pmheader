@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: pmheader
+# key: pmheader
+# --
+>>comment<<
+Summary: ${1:a short description}
+Parent: ${2:{*$Group}(.HomePage)}
+IncludeMe: [[$2]]
+Categories: ${3:[[!Uncategorized]]}
+Tags: ${4:keywords}
+(:tags-hide $4:)
+Source: ${5:source url}
+Posted: ${6:`(current-time-string)`}
+>><<

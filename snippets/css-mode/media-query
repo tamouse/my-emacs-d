@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: media-query
+# key: mq
+# binding: direct-keybinding
+# --
+@media screen and (min-width: ${1:480px}) {$0}

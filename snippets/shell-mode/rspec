@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: be rspec -f d --fail-fast
+# key: rspec
+# binding: direct-keybinding
+# --
+bundle exec rspec -f d --fail-fast

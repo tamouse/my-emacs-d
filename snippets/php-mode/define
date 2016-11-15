@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: define
+# key: define
+# --
+define('${1:key}',${2:'${3:value'}});

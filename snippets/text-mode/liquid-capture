@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: liquid-capture
+# key: lc
+# group: liquid
+# binding: direct-keybinding
+# --
+{% capture ${1:variable} %}$0{% endcapture %}

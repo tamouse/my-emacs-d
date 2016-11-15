@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: test class
+# key: tc
+# group: testing
+# --
+class ${1:Class}Test < Minitest::Test
+
+def setup
+
+end
+
+def teardown
+
+end
+
+$0
+end

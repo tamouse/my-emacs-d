@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: fragment
+# key: fragment
+# binding: direct-keybinding
+# group: reveal slides
+# --
+<${1:div} class="fragment">$0<$1>

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: blog
+# key: blog
+# --
+#+STARTUP: showall indent
+#+OPTIONS: toc:nil
+#+BEGIN_HTML
+---
+layout: default
+title: ${1:title}
+date: ${2:`(format-time-string "%F %H:%M")`}
+---
+#+END_SRC

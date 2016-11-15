@@ -1,0 +1,5 @@
+#contributor : Jimmy Wu <frozenthrone88@gmail.com>
+#name : <code class="...">...</code>
+#key: codec
+# --
+<code class="$1">$0</code>

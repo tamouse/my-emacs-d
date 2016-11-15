@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: vcr-use-cassette
+# key: vcr
+# binding: direct-keybinding
+# group: testing
+# --
+VCR.use_cassette(${1:'cassette_name'}) do
+$0
+end

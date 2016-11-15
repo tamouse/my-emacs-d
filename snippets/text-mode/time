@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: current time string
+# key: now
+# --
+`(current-time-string)`

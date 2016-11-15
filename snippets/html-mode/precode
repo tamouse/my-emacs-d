@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: precode
+# key: precode
+# binding: direct-keybinding
+# --
+<pre><code class="${1:lang}">$0</code></pre>

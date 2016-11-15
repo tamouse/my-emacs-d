@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: slide frontmatter
+# key: fm
+# binding: direct-keybinding
+# group: reveal slides
+# --
+---
+layout: slide
+title: "${1:Slide Title}"
+---
+
+$0

@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: test
+# key: test
+# binding: direct-keybinding
+# group: ExUnit
+# --
+test "${1:desc}" do
+$0
+end

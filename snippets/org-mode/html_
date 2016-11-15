@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: BEGIN_HTML
+# key: html_
+# binding: direct-keybinding
+# --
+#+BEGIN_HTML
+  $0
+#+END_HTML

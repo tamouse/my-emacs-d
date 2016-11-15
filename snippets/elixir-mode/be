@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Behaviour
+# --
+defmodule ${1:MyBehaviour} do
+use Behaviour
+
+defcallback ${0:${2:function} :: ${3:any}}
+end

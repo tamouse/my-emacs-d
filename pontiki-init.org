@@ -1,0 +1,767 @@
+#+STARTUP: overview
+
+* theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-theme
+    :ensure t)
+  (use-package zenburn-theme
+    :ensure t
+    :config (load-theme 'zenburn t))
+#+END_SRC
+
+* settings
+** personal settings
+
+#+BEGIN_SRC emacs-lisp
+(setq
+ user-mail-address "tamouse@gmail.com"
+ user-organization "Tamara Temple Web Development"
+ user-home-page    "http://www.tamouse.org"
+ user-signature    (concat user-full-name " <" user-mail-address ">")
+ )
+
+#+END_SRC
+
+** General settings for everyday use.
+   #+BEGIN_SRC emacs-lisp
+    (setq visible-bell nil
+          indent-tabs-mode nil
+          echo-keystrokes 0.1
+          font-lock-maximum-decoration t
+          transient-mark-mode t
+          delete-by-moving-to-trash t
+          truncate-partial-width-windows nil
+          uniquify-buffer-name-style 'forward
+          whitespace-style '(trailing lines space-before-tab
+                                      indentation space-after-tab)
+          xterm-mouse-mode t
+          save-place-file "~/.emacs.d/places"
+          fill-column 80
+          ido-auto-merge-delay-time 3
+          netrc-file "~/.netrc"
+          css-indent-offset 2
+          )
+
+    (defalias 'yes-or-no-p 'y-or-n-p)
+    (add-hook 'before-save-hook 'delete-trailing-whitespace)
+    (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+    ;;; Don't clutter up directories with backup files
+    (setq
+     backup-directory-alist
+     `(("." .
+        ,(expand-file-name
+          (concat "~/.emacs.d/backups"))
+        )
+       )
+     )
+   #+END_SRC
+
+** When using a windowing system
+
+   #+BEGIN_SRC emacs-lisp
+     (when window-system
+       (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+       (blink-cursor-mode -1)
+       (when (require 'mwheel nil 'no-error) (mouse-wheel-mode t)))
+   #+END_SRC
+
+** Character Encoding Cruft
+
+   #+BEGIN_SRC emacs-lisp
+     (set-terminal-coding-system 'utf-8)
+     (set-keyboard-coding-system 'utf-8)
+     (prefer-coding-system 'utf-8)
+     (auto-compression-mode t)
+     (recentf-mode 1)
+     (menu-bar-mode t)
+     (global-linum-mode t)
+     (electric-pair-mode t)
+     (auto-compression-mode t)
+     (show-paren-mode 1)
+   #+END_SRC
+
+** Hippie expansion
+
+   #+BEGIN_SRC emacs-lisp
+     (when (boundp 'hippie-expand-try-functions-list)
+       (delete 'try-expand-line hippie-expand-try-functions-list)
+       (delete 'try-expand-list hippie-expand-try-functions-list))
+
+   #+END_SRC
+
+* functions
+** Install a package if I need it
+
+   I shouldn't really need this, since I'm using ~use-package~ now.
+
+#+BEGIN_SRC emacs-lisp
+  (defun package-install-if-needed (p)
+    (unless (package-installed-p p)
+      (package-install p))
+    )
+#+END_SRC
+
+** Make closing a buffer a bit easier
+
+   I bind this to ^X^C
+
+#+BEGIN_SRC emacs-lisp
+  (defun save-current-buffer-and-kill ()
+    "Automatically save the current buffer before killing it, no questions asked."
+    (interactive)
+    (progn
+      (if (buffer-file-name)
+          (save-buffer)
+	nil)
+      (kill-buffer))
+    )
+  (global-set-key (kbd "C-x C-c") 'save-current-buffer-and-kill)
+#+END_SRC
+
+** Jekyll Functions to make my life easier
+
+*** Return the current time as YYYY-MM-DD HH:MM
+
+    Useful in the ~date:~ frontmatter.
+
+#+BEGIN_SRC emacs-lisp
+  (defun jekyll-time-string ()
+    "Return the current time or given time in epoc seconds as a string used by Jekyll posts: YYYY-MM-DD HH:MM"
+    (format-time-string "%Y-%m-%d %H:%M"))
+#+END_SRC
+
+*** Inserts the current time, calling the previous function
+
+#+BEGIN_SRC emacs-lisp
+  (defun insert-jekyll-time-string ()
+    "Insert the formatted Jekyll time string"
+    (interactive)
+    (insert (concat "date: " (jekyll-time-string))))
+#+END_SRC
+
+** Functions that change case and style of multiword identifiers
+#+BEGIN_SRC emacs-lisp
+  (defun snakify-text (start end)
+    "Convert text to a snake-case symbol"
+    (interactive "r")
+    (progn
+      (downcase-region start end)
+      (subst-char-in-region start end ?  ?_)))
+
+  (defun camelize (s)
+    "Convert snakified string to CamelCase."
+    (interactive "s")
+    (if (stringp s)
+	(mapconcat 'capitalize (split-string s "_") nil)
+      nil))
+
+  (defun camelize-file-name ()
+    "Convert the current buffer's file base name to CamelCase"
+    (interactive)
+    (if (stringp (buffer-file-name))
+	(camelize (file-name-base (buffer-file-name)))
+      nil))
+#+END_SRC
+
+** Indent the whole buffer
+   bound to ^x^i
+#+BEGIN_SRC emacs-lisp
+  (defun indent-buffer ()
+    "Indent the entire buffer"
+    (interactive)
+    (save-excursion
+      (indent-region (point-min) (point-max))))
+  (global-set-key (kbd "C-x C-i") 'indent-buffer)
+#+END_SRC
+
+** DWIM with comment and uncomment lines or regions
+
+   Bound to ^x/
+
+#+BEGIN_SRC emacs-lisp
+  (defun comment-or-uncomment-line-or-region ()
+    "DWIM comment or uncomment line or region"
+    (interactive)
+    (let (start end )
+      (if mark-active
+          (progn
+            (setq start (mark))
+            (setq end (point)))
+	(progn
+          (setq start (line-beginning-position))
+          (setq end (line-end-position))))
+      (comment-or-uncomment-region start end)))
+
+  (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
+#+END_SRC
+
+* modes
+** magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :bind (("C-c m" . magit-status)))
+#+END_SRC
+** org
+*** settings
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "org"
+    '(require 'ox-md nil t))
+
+  (setq
+   org-directory "~/Google Drive/org/"
+   org-default-notes-file (concat org-directory "inbox.org")
+   org-capture-default-template "w"
+   org-agenda-diary-file (concat org-directory "diary.org")
+   org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
+   )
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+#+END_SRC
+*** ditaa
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
+  ;(require 'ditaa)
+  (org-babel-do-load-languages 'org-babel-load-languages
+   '((ditaa . t)
+     (python . t)
+     (ruby . t)
+     (emacs-lisp . t)
+     )
+   )
+#+END_SRC
+
+*** reveal slides
+    Reveal.js is a cool javascript library to create slide
+    presentations.
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package ox-reveal
+        :ensure ox-reveal)
+      (setq org-reveal-root "https://cdn.jsdelivr.net/reveal.js/3.0.0/")
+      (setq org-reveal-mathjax t)
+      (use-package htmlize
+        :ensure t)
+    #+END_SRC
+*** org protocol server
+#+BEGIN_SRC emacs-lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;; Org Protocol Server
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (if (equal (system-name) "pontiki2.local")
+      (start-process
+       "org-protocol-server"
+       "org-protocol-server-buffer"
+       "/Users/tamara/.gem/ruby/2.3.1/bin/emacs_org_protocol_server"
+       )
+    nil)
+
+  (require 'org-protocol)
+
+
+#+END_SRC
+*** org templates
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   org-capture-templates
+   (quote
+    (
+     ("p" "Templates for personal care")
+     ("pi" "Insulin taken" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :immediate-finish t
+      :empty-lines 1
+      )
+     ("pg" "Glucose Reading" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* Glucose Reading %^{GLUCOSE_READING}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
+      :immediate-finish t
+      :empty-lines 1
+      )
+     ("pc" "Carbs Planned" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* Carbs Planned %^{CARBS_PLANNED}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
+      :immediate-finish nil
+      :empty-lines 1
+      )
+     ("pm" "Meds taken" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* Meds taken %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :immediate-finish nil
+      :empty-lines 1
+      )
+     ("pn" "Personal Care Note" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* &? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("pb" "Breakfast" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* breakfast notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("pl" "Lunch" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* lunch notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("ps" "Supper" entry
+      (file+datetree+prompt (concat org-directory "personal_care.org"))
+      "* supper notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("j" "Templates for journal capture")
+     ("jj" "Journal Entry" entry
+      (file+datetree+prompt (concat org-directory "journal.org" ) )
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :clock-in t
+      :clock-resume t
+      :empty-lines 1
+      )
+     ("jp" "Process Journal Entry" entry
+      (file+datetree+prompt (concat org-directory "process_journal.org"))
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :clock-in t
+      :clock-resume t
+      :empty-lines 1
+      )
+     ("jl" "Link Journal Entry" entry
+      (file+datetree+prompt (concat org-directory "link_journal.org"))
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("n" "note" entry
+      (file (concat org-directory "inbox.org"))
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("q" "Quotes" entry
+      (file (concat org-directory "quotes.org"))
+      "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n%i\n%a\n"
+      :empty-lines 1
+      )
+     ("t" "todo" entry
+      (file (concat org-directory "inbox.org"))
+      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("a" "appointment" entry
+      (file (concat org-directory "inbox.org"))
+      "* %^{Appointment:} %^T"
+      )
+     ("T" "Test" entry
+      (file (concat org-directory "misc.org"))
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")"
+      empty-lines 1
+      )
+     ("w" "Default Org-protocol Capture Template" entry
+      (file+datetree (concat org-directory "link_journal.org"))
+      "* %:description %(org-set-property \"CAPTURE_DATE\" \"%U\")%(org-set-property \"LINK\" \"%:link\")%(org-set-property \"TITLE\" \"%:description\")\n\n%:initial\n"
+      :immediate-finish t
+      :empty-lines 1
+      )
+     )))
+
+#+END_SRC
+*** text files are org files!
+#+BEGIN_SRC emacs-lisp
+
+  ;;; make every text file an org file
+  (add-to-list 'auto-mode-alist '("\\.te\?xt\\'" . org-mode))
+
+#+END_SRC
+** dired
+
+*** guess command use with the ~!~ dired command
+
+    The dired-guess-shell-alist-user sets up a bunch of defaults for
+    the given system. For example, on my mac, I want it to use the
+    ~open~ command on the files with the given extensions.
+
+    What I'd really love is a way to open these types of files with
+    that command and *not* into emacs using the regular dired find file
+    commands.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-guess-shell-alist-user
+	(pcase system-type
+	  (darwin
+	   '(("\\.\\(gif\\|jpe?g\\|png\\|mp3\\|mp4\\|pdf\\)\\'" "open"))
+	   )
+	  (_ nil)
+	  ))
+
+#+END_SRC
+** ruby
+*** ruby tools
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ruby-tools
+    :ensure t)
+#+END_SRC
+
+*** rest
+#+BEGIN_SRC emacs-lisp
+  (setq
+   ruby-use-smie nil
+   ruby-comment-column 40
+   ruby-deep-arglist nil
+   ruby-deep-indent-paren nil
+   ruby-deep-indent-paren-style nil
+   )
+  (global-set-key (kbd "C-x \\")	'align-regexp)
+#+END_SRC
+
+*** Align new-style hashes ~name: value~ nicely
+    This is bound to ^x:
+
+#+BEGIN_SRC emacs-lisp
+  (defun tpt/align-ruby-hash (beg end)
+    "Make new ruby hash syntax align nicely"
+    (interactive "r")
+    (align-regexp beg end "\\(\\s-*\\)\\(:\\s-+\\)\\(.\\)" 2 2 nil))
+
+  (define-key ruby-mode-map
+    (kbd "C-x :") 'tpt/align-ruby-hash)
+
+#+END_SRC
+
+
+*** Hide-show support that's actually useful
+#+BEGIN_SRC emacs-lisp
+
+  (add-to-list
+   'hs-special-modes-alist
+   '(ruby-mode
+     "\\(class\\|module\\|def\\|do\\|{\\)" "\\(end\\|end\\|end\\|end\\|}\\)" "#"
+     (lambda (arg) (ruby-end-of-block)) nil))
+
+#+END_SRC
+
+*** Make sure special files come up in ruby mode
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.jbuilder" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Vagrantfile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+#+END_SRC
+
+** helm-projectile
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-projectile
+    :ensure t
+    :config
+    (require 'helm)
+    (require 'helm-config)
+    (define-key helm-map (kbd "C-z") 'helm-select-action)
+    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+    (when (executable-find "curl")
+      (setq helm-google-suggest-use-curl-p t))
+    (setq helm-split-window-in-side-p t
+          helm-move-to-line-cycle-in-source t
+          helm-ff-search-library-in-sexp t
+          helm-scroll-amount 8
+          helm-ff-file-name-history-use-recentf t)
+    (helm-mode 1)
+
+    (projectile-global-mode)
+    (setq
+     projectile-completion-system 'helm
+     projectile-switch-project-action 'projectile-dired
+     projectile-find-dir-includes-top-level t
+     projectile-mode-line '(:eval (format " Prj[%s]" (projectile-project-name)))
+     )
+    )
+
+#+END_SRC
+
+** elixir
+#+BEGIN_SRC emacs-lisp
+  (use-package alchemist
+    :ensure t
+    :config
+    (setq alchemist-key-command-prefix (kbd "C-c ,")) ;; default is C-c a, which is org-agenda
+    (add-to-list 'alchemist-mode-hook (lambda () (company-mode))))
+#+END_SRC
+** clojure
+#+BEGIN_SRC emacs-lisp
+  ;;; Clojure Setup
+
+  ;; This list from Tom Marble (https://github.com/tmarble/clj.emacs.d)
+  ;; Some things from https://github.com/clojure-emacs/cider
+
+  ;; (use-package rainbow-delimiters :ensure t)
+  ;; (use-package clojure-snippets :ensure t)
+  ;; (use-package paredit :ensure t)
+  ;; (use-package clojure-mode :ensure t)
+  ;; (use-package cider
+  ;;   :ensure t
+  ;;   :config
+  ;;   (add-hook 'cider-mode-hook #'eldoc-mode)
+  ;;   )
+
+#+END_SRC
+** apache
+#+BEGIN_SRC emacs-lisp
+  (autoload 'apache-mode "apache-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.htaccess\\'"   . apache-mode))
+  (add-to-list 'auto-mode-alist '("httpd\\.conf\\'"  . apache-mode))
+  (add-to-list 'auto-mode-alist '("srm\\.conf\\'"    . apache-mode))
+  (add-to-list 'auto-mode-alist '("access\\.conf\\'" . apache-mode))
+  (add-to-list 'auto-mode-alist '("sites-\\(available\\|enabled\\)/" . apache-mode))
+
+#+END_SRC
+** nginx
+#+BEGIN_SRC emacs-lisp
+(use-package nginx-mode :ensure t)
+#+END_SRC
+** coffee
+#+BEGIN_SRC emacs-lisp
+(use-package coffee-mode :ensure t)
+#+END_SRC
+** emmet
+#+BEGIN_SRC emacs-lisp
+  (use-package emmet-mode
+    :ensure t
+    :config
+    (add-hook 'sgml-mode-hook 'emmet-mode)
+    (add-hook 'css-mode-hook 'emmet-mode)
+    (add-hook 'markdown-mode-hook 'emmet-mode)
+    )
+#+END_SRC
+** sass
+#+BEGIN_SRC emacs-lisp
+  (use-package sass-mode :ensure t)
+#+END_SRC
+** scss
+   Turn *off* the auto-compile on save feature
+#+BEGIN_SRC emacs-lisp
+  (use-package scss-mode
+    :ensure t
+    :config
+    (setq scss-compile-at-save nil)) ; this bugs me so much
+#+END_SRC
+** stylus
+#+BEGIN_SRC emacs-lisp
+  (use-package stylus-mode :ensure t)
+#+END_SRC
+** markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode :ensure t
+    :config
+    (add-to-list 'auto-mode-alist
+                 '("\\.\\(md\\|mkd\\|markdown\\)" . markdown-mode)))
+
+#+END_SRC
+** feature (Gherkin)
+#+BEGIN_SRC emacs-lisp
+  (setq feature-default-language "en")
+  (use-package feature-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode)))
+
+#+END_SRC
+** yaml
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode :ensure t)
+#+END_SRC
+** haml
+#+BEGIN_SRC emacs-lisp
+  (use-package haml-mode :ensure t)
+#+END_SRC
+** slim
+#+BEGIN_SRC emacs-lisp
+  (use-package slim-mode :ensure t)
+#+END_SRC
+
+** web
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode :ensure t
+    :config
+    (setq
+     web-mode-css-indent-offset 2
+     web-mode-code-indent-offset 2
+     web-mode-attr-indent-offset 2
+     web-mode-markup-indent-offset 2
+     web-mode-sql-indent-offset 2
+     )
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsonb\\'" . web-mode))
+    )
+
+#+END_SRC
+** grep
+#+BEGIN_SRC emacs-lisp
+  (setq grep-command "grep -nH -e "
+	grep-find-command (quote ("find . -type f -exec grep -nH -e  {} +" . 34))
+	grep-find-ignored-directories (quote
+				       ("SCCS" "RCS" "CVS" "MCVS" ".svn" ".git" ".hg"
+					".bzr" "_MTN" "_darcs" "{arch}" ".idea"))
+	grep-find-template "find . <X> -type f <F> -exec grep <C> -nH -e <R> {} +"
+	grep-highlight-matches nil
+	grep-template "grep <X> <C> -nH -e <R> <F>"
+	grep-use-null-device nil)
+  (global-set-key (kbd "C-x \\")	'align-regexp)
+#+END_SRC
+** erc
+
+#+BEGIN_SRC emacs-lisp
+(require 'erc)
+(setq
+ erc-hide-list '("JOIN" "PART" "QUIT")
+ erc-kill-buffer-on-part t
+ erc-kill-queries-on-quit t
+ erc-autojoin-channels-alist '(("freenode.net"
+				"#emacs"
+				)
+			       ("foonetic.net" "#xkcdfurs"))
+ erc-autojoin-delay 5
+ erc-modules '(autoaway autojoin button completion fill irccontrols
+			list log match menu move-to-prompt netsplit
+			networks noncommands readonly ring stamp track)
+ erc-nick "tamouse__"
+ erc-nick-uniquifier "_"
+ erc-user-full-name user-full-name
+ erc-email-userid "tamouse@gmail.com"
+ erc-keywords '("\\btam\\b"
+		"\\btamara\\b"
+		"\\btamouse\\b"
+		"\\bmousie\\b"
+		"\\bmousey\b"
+		"\\bsqueeq\\b"
+		"\\bsqeeq\\b"
+		)
+ erc-fools '("Grimes" "Gridley")
+ )
+
+#+END_SRC
+
+** try
+#+BEGIN_SRC emacs-lisp
+  (use-package try :ensure t)
+#+END_SRC
+** which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t
+    :config
+    (which-key-mode))
+#+END_SRC
+** siper / ivy / counsel
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    (("M-y" . counsel-yank-pop)
+     :map ivy-minibuffer-map
+     ("M-y" . ivy-next-line)))
+
+  (use-package ivy
+    :ensure t
+    :diminish (ivy-mode)
+    :bind (("C-x b" . ivy-switch-buffer))
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-display-style 'fancy))
+
+
+  (use-package swiper
+    :ensure t
+    :bind (("C-s" . swiper)
+           ("C-r" . swiper)
+           ("C-c C-r" . ivy-resume)
+           ("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file))
+    :config
+    (progn
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)
+      (setq ivy-display-style 'fancy)
+      (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+      ))
+
+#+END_SRC
+** editorconfig
+#+BEGIN_SRC emacs-lisp
+(use-package editorconfig :ensure t)
+#+END_SRC
+
+** lorem-ipsum
+#+BEGIN_SRC emacs-lisp
+  (use-package lorem-ipsum :ensure t)
+
+#+END_SRC
+** time-stamp
+#+BEGIN_SRC emacs-lisp
+  (require 'time-stamp)
+  (add-hook 'before-save-hook 'time-stamp)
+  (setq time-stamp-active t)
+
+#+END_SRC
+
+** MULTIPLE CURSORS (cos it's that cool)
+ #+BEGIN_SRC emacs-lisp
+   (use-package multiple-cursors
+     :ensure t
+     :bind
+     (("C->" . mc/mark-next-like-this)
+      ("C-<" . mc/mark-previous-like-this)
+      ("C-c C-<" . mc/mark-all-like-this)))
+
+ #+END_SRC
+
+* snippets
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (setq  yas-snippet-dirs '("~/.emacs.d/snippets/") )
+    (yas-global-mode 1))
+
+#+END_SRC
+
+* emacs server for emacsclient work
+#+BEGIN_SRC emacs-lisp
+  (require 'server)
+  (unless (server-running-p)
+    (server-start))
+#+END_SRC
+* key bindings
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-SPC")	'fixup-whitespace)
+(global-set-key (kbd "C-x C-o") 'delete-blank-lines)
+(global-set-key (kbd "C-c M-a f") 'auto-fill-mode)
+(global-set-key (kbd "C-x \\")	'align-regexp)
+(global-set-key (kbd "C-M-h") 'backward-kill-word)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+
+(define-key isearch-mode-map (kbd "C-o")
+  (lambda () (interactive)
+    (let ((case-fold-search isearch-case-fold-search))
+      (occur (if isearch-regexp
+                 isearch-string
+               (regexp-quote isearch-string))))))
+
+;; these just piss me off
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
+
+#+END_SRC

@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: inverted-menu
+# group: semantic
+# --
+<div class="ui inverted menu">
+  <a class="active item">
+    <i class="home icon"></i> ${1:Home}
+  </a>
+  <a class="item">
+    <i class="mail icon"></i> ${2:About}
+  </a>
+  <a class="item">
+    <i class="user icon"></i> ${3:Contact}
+  </a>
+</div>

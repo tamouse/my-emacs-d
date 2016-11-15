@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: figure
+# key: figure
+# group : structure
+# binding: direct-keybinding
+# --
+<figure>
+${1:figure body}
+<figcaption>
+${2:figure caption}
+</figcaption>
+</figure>

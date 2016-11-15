@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .row
+# key: .row
+# binding: direct-keybinding
+# group: bootstrap
+# --
+<div class="row$1">$0</div>
