@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: notes div
+# key: notes
+# group: reveal slides
+# --
+<div class="notes">
+
+$0
+
+</div>
