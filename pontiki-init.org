@@ -644,34 +644,63 @@
 ** erc
 
 #+BEGIN_SRC emacs-lisp
-(require 'erc)
-(setq
- erc-hide-list '("JOIN" "PART" "QUIT")
- erc-kill-buffer-on-part t
- erc-kill-queries-on-quit t
- erc-autojoin-channels-alist '(("freenode.net"
-				"#callahans"
-				)
-			       ("foonetic.net" "#xkcdfurs"))
- erc-autojoin-delay 5
- erc-modules '(autoaway autojoin button completion fill irccontrols
-			list log match menu move-to-prompt netsplit
-			networks noncommands readonly ring stamp track)
- erc-nick "tamouse__"
- erc-nick-uniquifier "_"
- erc-user-full-name user-full-name
- erc-email-userid "tamouse@gmail.com"
- erc-keywords '("\\btam\\b"
-		"\\btamara\\b"
-		"\\btamouse\\b"
-		"\\bmousie\\b"
-		"\\bmousey\b"
-		"\\bsqueeq\\b"
-		"\\bsqeeq\\b"
-		)
- erc-fools '("Grimes" "Gridley")
- )
+  ;; (require 'erc-sasl)
 
+  ;; (setq
+  ;;  erc-kill-buffer-on-part t
+  ;;  erc-kill-queries-on-quit t
+  ;;  erc-autojoin-channels-alist
+  ;;  '(("freenode.net" "#callahans")
+  ;;    ("transadvice.org" "#lobby")
+  ;;    ("foonetic.net" "#xkcdfurs"))
+  ;;  erc-autojoin-delay 2
+  ;;  erc-modules
+  ;;  '(autojoin button completion fill irccontrols
+  ;; 	    list log match menu move-to-prompt netsplit
+  ;; 	    networks noncommands readonly ring stamp track)
+  ;;  erc-nick "tamouse__"
+  ;;  erc-nick-uniquifier "_"
+  ;;  erc-user-full-name user-full-name
+  ;;  erc-email-userid "tamouse@gmail.com"
+  ;;  erc-keywords '("\\btam\\b"
+  ;; 		"\\btamara\\b"
+  ;; 		"\\btamouse\\b"
+  ;; 		"\\bmousie\\b"
+  ;; 		"\\bmousey\b"
+  ;; 		"\\bsqueeq\\b"
+  ;; 		"\\bsqeeq\\b"
+  ;; 		)
+  ;;  )
+#+END_SRC
+
+** circe
+
+   Circe is an alternative to ERC, which has SASL built in.
+
+   [[https://github.com/jorgenschaefer/circe][Circe on Github]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package circe :ensure t)
+  (setq circe-network-options
+	'(("Freenode"
+	   :tls t
+	   :nick "tamouse__"
+	   :sasl-username "tamouse__"
+	   :sasl-password "nitwood"
+	   :channels ("#callahans")
+	   )
+	  ("TransAdvice"
+	   :host "irc.transadvice.org"
+	   :port "6667"
+	   :nick "eveningrose"
+	   :channels ("#lobby"))
+	  )
+	)
+  (require 'circe-color-nicks)
+  (enable-circe-color-nicks)
+  (require 'circe-lagmon)
+  (require 'circe-new-day-notifier)
+  (enable-circe-new-day-notifier)
 #+END_SRC
 
 ** try
