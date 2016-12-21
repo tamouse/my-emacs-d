@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: orequals
+# key: orequals
+# --
+||= is "or-equals" or "hammer".  a ||= b is the equivalent of a || a = b.
+See http://ruby-doc.org/core-2.0.0/doc/syntax/assignment_rdoc.html (search for ||= in page).
