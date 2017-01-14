@@ -28,7 +28,8 @@
     ("~/Google Drive/org/python-notes.org" "~/Google Drive/org/quotes.org" "~/Google Drive/org/misc-notes.org" "~/Google Drive/org/ddates2017.org" "~/Google Drive/org/software-for-good.org" "~/Google Drive/org/writing.org" "~/Google Drive/org/vagrant-notes.org" "~/Google Drive/org/ux-notes.org" "~/Google Drive/org/thor-notes.org" "~/Google Drive/org/swaac-notes.org" "~/Google Drive/org/static-sites.org" "~/Google Drive/org/shell-notes.org" "~/Google Drive/org/ruby-notes.org" "~/Google Drive/org/rpi-notes.org" "~/Google Drive/org/rails-notes.org" "~/Google Drive/org/postgres-notes.org" "~/Google Drive/org/personal_care.org" "~/Google Drive/org/portfolio.org" "~/Google Drive/org/lisp-notes.org" "~/Google Drive/org/link_journal.org" "~/Google Drive/org/learning.org" "~/Google Drive/org/journal.org" "~/Google Drive/org/javascript-notes.org" "~/Google Drive/org/inbox.org" "~/Google Drive/org/html-notes.org" "~/Google Drive/org/hackthegap.org" "~/Google Drive/org/gdi-classes.org" "~/Google Drive/org/emacs-notes.org" "~/Google Drive/org/elixir-notes.org" "~/Google Drive/org/docker-notes.org" "~/Google Drive/org/diary.org" "~/Google Drive/org/devops-notes.org" "~/Google Drive/org/css-notes.org" "~/Google Drive/org/critters.org" "~/Google Drive/org/clojure-notes.org" "~/Google Drive/org/braintree-notes.org" "~/Google Drive/org/books.org" "~/Google Drive/org/art.org" "~/Google Drive/org/anniversaries.org" "~/Google Drive/org/WordPress-notes.org" "~/.emacs.d-aside/pontiki-init.org")))
  '(package-selected-packages
    (quote
-    (circe xquery-mode js2-mode htmlize yaml-mode use-package ox-reveal))))
+    (:org-trello org-trello monokai-theme darkokai-theme darkmine-theme darkburn-theme darkane-theme circe xquery-mode js2-mode htmlize yaml-mode use-package ox-reveal)))
+ '(send-mail-function (quote mailclient-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

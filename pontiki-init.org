@@ -3,11 +3,14 @@
 * theme
 
 #+BEGIN_SRC emacs-lisp
-  (use-package color-theme
-    :ensure t)
-  (use-package zenburn-theme
-    :ensure t
-    :config (load-theme 'zenburn t))
+  (use-package color-theme :ensure t)
+  (use-package darkburn-theme :ensure t)
+  (use-package darkmine-theme :ensure t)
+  (use-package darkokai-theme :ensure t)
+  (use-package monokai-theme :ensure t)
+  (use-package zenburn-theme :ensure t)
+  (use-package darkane-theme :ensure t :config (load-theme 'darkane t))
+
 #+END_SRC
 
 * settings
@@ -220,7 +223,7 @@
    org-personal-care-file (expand-file-name (concat org-directory "personal_care.org"))
    org-journal-file (expand-file-name (concat org-directory "journal.org"))
    org-process-journal-file (expand-file-name (concat org-directory "process_journal.org"))
-   org-link-journal-file (expand-file-name (concat org-directory "link_jounal.org"))
+   org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
    org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
    org-test-file (expand-file-name (concat org-directory "test.org"))
    )
@@ -350,7 +353,7 @@
       )
      ("q" "Quotes" entry
       (file org-quotes-file)
-      "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n%i\n%a\n"
+      "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
      ("t" "todo" entry
@@ -388,6 +391,16 @@
 
   ;;; make every text file an org file
   (add-to-list 'auto-mode-alist '("\\.te\?xt\\'" . org-mode))
+
+#+END_SRC
+*** org-trello
+
+Connect org-mode with trello.com!
+
+https://org-trello.github.io/install.html
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-trello :ensure t)
 
 #+END_SRC
 ** dired
@@ -693,7 +706,20 @@
 	   :host "irc.transadvice.org"
 	   :port "6667"
 	   :nick "eveningrose"
-	   :channels ("#lobby"))
+	   :channels ("#lobby")
+	   )
+	  ("TransAdvice-alt1"
+	   :host "ranma.ftee.org"
+	   :port "6667"
+	   :nick "eveningrose"
+	   :channels ("#lobby")
+	   )
+	  ("TransAdvice-alt2"
+	   :host "irc.funkykitty.net"
+	   :port "6667"
+	   :nick "eveningrose"
+	   :channels ("#lobby")
+	   )
 	  )
 	)
   (require 'circe-color-nicks)
