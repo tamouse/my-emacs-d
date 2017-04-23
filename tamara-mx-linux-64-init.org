@@ -699,7 +699,6 @@ https://org-trello.github.io/install.html
 	   :tls t
 	   :nick "tamouse__"
 	   :sasl-username "tamouse__"
-	   :sasl-password "nitwood"
 	   :channels ("#callahans")
 	   )
 	  ("TransAdvice"
