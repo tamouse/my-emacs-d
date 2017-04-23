@@ -722,6 +722,10 @@ https://org-trello.github.io/install.html
 	   )
 	  )
 	)
+  (setq circe-reduce-lurker-spam t)
+  (setq circe-format-server-topic "*** Topic change by {userhost}: {topic-diff}")
+  (setq circe-format-say "{nick:-16s} {body}")
+
   (require 'circe-color-nicks)
   (enable-circe-color-nicks)
   (require 'circe-lagmon)
@@ -776,7 +780,7 @@ https://org-trello.github.io/install.html
 #+END_SRC
 ** editorconfig
 #+BEGIN_SRC emacs-lisp
-(use-package editorconfig :ensure t)
+(use-package editorconfig :ensure t :config (editorconfig-mode 1))
 #+END_SRC
 
 ** lorem-ipsum
