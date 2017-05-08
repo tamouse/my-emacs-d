@@ -9,6 +9,6 @@ backups/
 url/
 eshell/
 recentf
-pontiki-init.el
+/*-init.el
 request/
 /.mc-lists.el
