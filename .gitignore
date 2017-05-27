@@ -1,3 +1,8 @@
+# These are for local configuration
+local.org
+local.el
+
+
 .trello
 elpa/
 auto-save-list/
