@@ -486,16 +486,19 @@ https://org-trello.github.io/install.html
     :ensure t
     :config
     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
-    )
-  (use-package json-mode
-    :ensure t
-    :config
-    (setq json-reformat:indent-width 2)
-    (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsonb\\'" . json-mode))
+    (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsonb\\'" . js2-mode))
     )
 #+END_SRC
+
+*** jsx-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package jsx-mode :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+    )
+#+END_SRC
+
 
 ** helm-projectile
 #+BEGIN_SRC emacs-lisp

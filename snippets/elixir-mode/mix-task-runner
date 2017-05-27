@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: mix-task-runner
+# key: mtr
+# group: mix
+# --
+defmodule Mix.Tasks.${1:TaskName} do
+
+  @moduledoc """
+  ${2:Documentation goes here}
+  """
+
+  use Mix.Task
+
+  def run(_) do
+    $0
+  end
+
+end
