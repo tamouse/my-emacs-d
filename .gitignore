@@ -1,3 +1,8 @@
+# These are for local configuration
+local.org
+local.el
+
+
 .trello
 elpa/
 auto-save-list/
@@ -9,6 +14,6 @@ backups/
 url/
 eshell/
 recentf
-pontiki-init.el
+/*-init.el
 request/
 /.mc-lists.el

@@ -28,37 +28,40 @@
 
 ** General settings for everyday use.
    #+BEGIN_SRC emacs-lisp
-    (setq visible-bell nil
-          indent-tabs-mode nil
-          echo-keystrokes 0.1
-          font-lock-maximum-decoration t
-          transient-mark-mode t
-          delete-by-moving-to-trash t
-          truncate-partial-width-windows nil
-          uniquify-buffer-name-style 'forward
-          whitespace-style '(trailing lines space-before-tab
-                                      indentation space-after-tab)
-          xterm-mouse-mode t
-          save-place-file "~/.emacs.d/places"
-          fill-column 80
-          ido-auto-merge-delay-time 3
-          netrc-file "~/.netrc"
-          css-indent-offset 2
-          )
-
-    (defalias 'yes-or-no-p 'y-or-n-p)
-    (add-hook 'before-save-hook 'delete-trailing-whitespace)
-    (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-    ;;; Don't clutter up directories with backup files
-    (setq
-     backup-directory-alist
-     `(("." .
-        ,(expand-file-name
-          (concat "~/.emacs.d/backups"))
+     (setq visible-bell nil
+        indent-tabs-mode nil
+        echo-keystrokes 0.1
+        font-lock-maximum-decoration t
+        transient-mark-mode t
+        delete-by-moving-to-trash t
+        truncate-partial-width-windows nil
+        uniquify-buffer-name-style 'forward
+        whitespace-style '(trailing lines space-before-tab
+                                       indentation space-after-tab)
+        xterm-mouse-mode t
+        save-place-file "~/.emacs.d/places"
+        fill-column 80
+        ido-auto-merge-delay-time 3
+        netrc-file "~/.netrc"
+        css-indent-offset 2
         )
-       )
-     )
+
+     (defalias 'yes-or-no-p 'y-or-n-p)
+     (add-hook 'before-save-hook 'delete-trailing-whitespace)
+     (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+     ;;; Don't clutter up directories with backup files
+     (setq
+      backup-directory-alist
+      `(("." .
+         ,(expand-file-name
+        (concat "~/.emacs.d/backups"))
+         )
+        )
+      )
+
+
+     (put 'narrow-to-region 'disabled nil)
    #+END_SRC
 
 ** When using a windowing system
