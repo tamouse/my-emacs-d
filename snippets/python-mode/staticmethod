@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: staticmethod
+# key: sm
+# group: object oriented
+# --
+@staticsmethod
+def ${1:meth}(self, $0):
