@@ -355,6 +355,12 @@
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
   )
 
+(use-package php-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+  )
+
 (use-package helm-projectile
   :ensure t
   :config
@@ -433,7 +439,10 @@
 (use-package markdown-mode :ensure t
   :config
   (add-to-list 'auto-mode-alist
-               '("\\.\\(md\\|mkd\\|markdown\\)" . markdown-mode)))
+	       '("\\.\\(md\\|mkd\\|markdown\\)" . markdown-mode))
+  (add-to-list 'auto-mode-alist
+	       '("\\.\\(md\\|mkd\\|markdown\\)\\.\\(erb\\|tt\\)" . markdown-mode))
+  )
 
 (setq feature-default-language "en")
 (use-package feature-mode
@@ -441,7 +450,11 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode)))
 
-(use-package yaml-mode :ensure t)
+(use-package yaml-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)\\.\\(erb\\|tt\\)" . yaml-mode))
+  )
 
 (use-package haml-mode :ensure t)
 
@@ -510,35 +523,41 @@
 	    secret))
       (error "Password not found for %S" params)))
   )
-(defun my-sasl-password (server)
+(defun my-freenode-sasl-password (server)
   (my-fetch-password :user "tamouse__" :host "irc.freenode.net")
   )
+
+(defun my-transadvice-sasl-password (server)
+  (my-fetch-password :user "eveningrose" :host "irc.transadvice.org"))
 
 (setq circe-network-options
       '(("Freenode"
 	 :tls t
 	 :nick "tamouse__"
 	 :sasl-username "tamouse__"
-	 :sasl-password my-sasl-password
+	 :sasl-password my-freenode-sasl-password
 	 :channels (:after-auth "#callahans")
 	 )
 	("TransAdvice"
 	 :host "irc.transadvice.org"
 	 :port "6667"
 	 :nick "eveningrose"
-	 :channels ("#lobby")
+	 :nickserv-password my-transadvice-sasl-password
+	 :channels (:after-auth "#lobby")
 	 )
 	("TransAdvice-alt1"
 	 :host "ranma.ftee.org"
 	 :port "6667"
 	 :nick "eveningrose"
-	 :channels ("#lobby")
+	 :nickserv-password my-transadvice-sasl-password
+	 :channels (:after-auth "#lobby")
 	 )
 	("TransAdvice-alt2"
 	 :host "irc.funkykitty.net"
 	 :port "6667"
 	 :nick "eveningrose"
-	 :channels ("#lobby")
+	 :nickserv-password my-transadvice-sasl-password
+	 :channels (:after-auth "#lobby")
 	 )
 	)
       )

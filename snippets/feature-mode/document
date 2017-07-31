@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: document
+# key: "
+# --
+"""
+$0
+"""

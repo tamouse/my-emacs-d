@@ -1,0 +1,43 @@
+# -*- mode: snippet -*-
+# name: org-reveal presentation
+# key: orpres
+# --
+#+OPTIONS: reveal_center:nil reveal_progress:t reveal_history:nil reveal_control:t reveal_title_slide:nil
+#+OPTIONS: reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil
+#+OPTIONS: toc:nil
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: moon
+#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="${1:description}">
+#+REVEAL_POSTAMBLE: <div> Created by Tamara Temple &lt;tamara@tamouse.org&gt; </div>
+#+REVEAL_PLUGINS: (${2:markdown notes})
+#+BEGIN_EXPORT html
+<style media="screen">
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:700,700i");
+  .reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+  text-transform: inherit; font-family: "Monserrat", sans-serif; font-weight: bold;
+  }
+
+  @import url("https://fonts.googleapis.com/css?family=Lato:400,400i");
+  .reveal section. .reveal div, .reveal p, .reveal ul, .reveal ol, .reveal li, .reveal dl, .reveal dt, .reveal dd,
+  .reveal blockquote, .reveal q, .reveal aside, .reveal figure, .reveal figcaption, .reveal article, .reveal header,
+  .reveal footer, .reveal span, .reveal i, .reveal b, .reveal em, .reveal strong {
+  font-family: "Lato", sans-serif;
+  }
+  .reveal .slide-number { color: white; }
+</style>
+#+END_EXPORT
+
+* INTRODUCTION
+
+** ${3:title}
+  Tamara Temple
+
+  [[mailto:tamara@tamouse.org][tamara@tamouse.org]]
+
+  ${4:now}
+
+$0
+
+* PART ONE
+
+* PART TWO

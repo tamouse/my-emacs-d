@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: php code
+# key: ?c
+# group: embedded
+# --
+<?php ${1:code}; ?>

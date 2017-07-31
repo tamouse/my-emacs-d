@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: php echo
+# key: ?e
+# group: embedded
+# --
+<?php echo ${1:"${2:something}"}; ?>

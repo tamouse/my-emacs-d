@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: $_ENV
+# key: E
+# --
+$_ENV[${1:'${2:var}'}]

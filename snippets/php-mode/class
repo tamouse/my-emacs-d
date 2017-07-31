@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: class
+# key: class
+# --
+class ${1:ClassName}${2: extends ${3:Parent}}
+{
+  function __construct(${4:args})
+  {
+    $0// TODO: write constructor
+  }
+
+  function __destruct()
+  {
+    // TODO: write destructor
+  }
+}

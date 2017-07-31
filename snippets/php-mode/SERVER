@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: $_SERVER
+# key: S
+# --
+$_SERVER[${1:'${2:var}'}]

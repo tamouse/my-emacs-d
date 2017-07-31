@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: fragment
+# key: frag
+# group: reveal
+# --
+#+ATTR_REVEAL: :frag ${1:(fade-in)}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: $_POST
+# key: P
+# --
+$_POST[${1:'${2:var}'}]
