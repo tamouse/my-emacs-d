@@ -16,6 +16,5 @@ eshell/
 recentf
 /*-init.el
 request/
-/.mc-lists.el
-init.el
-common.el
+.mc-lists.el
+*.el

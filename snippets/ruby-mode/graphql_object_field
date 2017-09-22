@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: graphql object type field
+# key: f
+# group: graphql
+# --
+field ${1::field_name}, ${2:!}types.${3:String|Int|Float|Boolean|Object}${4:, ${5:"${6:description}"}}

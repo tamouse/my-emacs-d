@@ -67,7 +67,7 @@
 ** When using a windowing system
 
    #+BEGIN_SRC emacs-lisp
-     (when window-system
+     (when (display-graphic-p)
        (setq frame-title-format '(buffer-file-name "%f" ("%b")))
        (blink-cursor-mode -1)
        (when (require 'mwheel nil 'no-error) (mouse-wheel-mode t)))
@@ -407,6 +407,15 @@ https://org-trello.github.io/install.html
 
 #+END_SRC
 ** dired
+
+*** dired-details-plus
+
+    Hide / show info on dired pages
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package dired-details+ :ensure t)
+    #+END_SRC
+
 
 *** guess command use with the ~!~ dired command
 
