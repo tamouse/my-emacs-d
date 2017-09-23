@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: target-blank
+# key: tgtblnk
+# --
+target="_blank" rel="noopener noreferrer"
