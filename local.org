@@ -1,0 +1,49 @@
+#+STARTUP: overview
+
+* settings
+** personal settings
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   user-mail-address "tamara.temple@reachlocal.com"
+   user-organization "ReachLocal, Inc"
+   user-home-page    nil
+   user-signature    (concat user-full-name " <" user-mail-address ">")
+   )
+
+#+END_SRC
+
+* modes
+** org
+
+*** variables
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-directory "~/Documents/org-files/")
+  (setq org-default-notes-file (concat org-directory "inbox.org"))
+#+END_SRC
+
+*** templates
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   org-capture-templates
+   (quote
+    (
+     ("n" "note" entry
+      (file+headline org-default-notes-file "NOTES")
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("t" "todo" entry
+      (file+headline org-default-notes-file "TODOS")
+      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      )
+     ("a" "appointment" entry
+      (file+headline org-default-notes-file "APPOINTMENTS")
+      "* %^{Appointment:} %^T"
+      )
+     )))
+
+#+END_SRC
