@@ -1,0 +1,20 @@
+* Local modifications on Gonff
+
+** org mode overrides
+*** settings
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   org-directory "~/Documents/org-files/"
+   org-default-notes-file (concat org-directory "inbox.org")
+   org-capture-default-template "w"
+   org-agenda-diary-file (concat org-directory "diary.org")
+   org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
+   org-personal-care-file (expand-file-name (concat org-directory "personal_care.org"))
+   org-journal-file (expand-file-name (concat org-directory "journal.org"))
+   org-process-journal-file (expand-file-name (concat org-directory "process_journal.org"))
+   org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
+   org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
+   org-test-file (expand-file-name (concat org-directory "test.org"))
+  )
+#+END_SRC
