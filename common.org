@@ -203,6 +203,7 @@
   (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
 #+END_SRC
 
+
 * modes
 ** magit
 #+BEGIN_SRC emacs-lisp
@@ -512,6 +513,15 @@ https://org-trello.github.io/install.html
     :config
     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
     )
+#+END_SRC
+
+*** prettier
+#+BEGIN_SRC emacs-lisp
+  (use-package prettier-js :ensure t
+    :config
+    (add-hook 'js2-mode-hook 'prettier-js-mode)
+    (add-hook 'web-mode-hook 'prettier-js-mode)
+    (add-hook 'jsx-mode-hook 'prettier-js-mode))
 #+END_SRC
 
 ** php
