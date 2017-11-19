@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: react.import
 # key: react
+# group: react
 # --
 import React from "react"
 import PropTypes from "prop-types"

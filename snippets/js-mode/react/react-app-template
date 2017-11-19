@@ -1,7 +1,7 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: react-js-template
-# key: react
-# group: templates
+# name: react-app-template
+# key: rapp
+# group: react
 # --
 import React from "react"
 import ReactDom from "react-dom"
