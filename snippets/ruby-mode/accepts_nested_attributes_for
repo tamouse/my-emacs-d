@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: accepts_nested_attributes_for
+# key: anaf
+# group: Rails
+# --
+accepts_nested_attributes_for :${1:name}${2:, reject_if: proc {|attributes| attributes['field'].blank?} }

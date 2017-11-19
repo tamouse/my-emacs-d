@@ -29,22 +29,23 @@
 ** General settings for everyday use.
    #+BEGIN_SRC emacs-lisp
      (setq visible-bell nil
-        indent-tabs-mode nil
-        echo-keystrokes 0.1
-        font-lock-maximum-decoration t
-        transient-mark-mode t
-        delete-by-moving-to-trash t
-        truncate-partial-width-windows nil
-        uniquify-buffer-name-style 'forward
-        whitespace-style '(trailing lines space-before-tab
+   	ring-bell-function 'ignore
+   	indent-tabs-mode nil
+   	echo-keystrokes 0.1
+   	font-lock-maximum-decoration t
+   	transient-mark-mode t
+   	delete-by-moving-to-trash t
+   	truncate-partial-width-windows nil
+   	uniquify-buffer-name-style 'forward
+   	whitespace-style '(trailing lines space-before-tab
                                        indentation space-after-tab)
-        xterm-mouse-mode t
-        save-place-file "~/.emacs.d/places"
-        fill-column 80
-        ido-auto-merge-delay-time 3
-        netrc-file "~/.netrc"
-        css-indent-offset 2
-        )
+   	xterm-mouse-mode t
+   	save-place-file "~/.emacs.d/places"
+   	fill-column 80
+   	ido-auto-merge-delay-time 3
+   	netrc-file "~/.netrc"
+   	css-indent-offset 2
+   	)
 
      (defalias 'yes-or-no-p 'y-or-n-p)
      (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -55,7 +56,7 @@
       backup-directory-alist
       `(("." .
          ,(expand-file-name
-        (concat "~/.emacs.d/backups"))
+   	(concat "~/.emacs.d/backups"))
          )
         )
       )
@@ -408,12 +409,12 @@ https://org-trello.github.io/install.html
 #+END_SRC
 ** dired
 
-*** dired-details-plus
+*** dired-details
 
     Hide / show info on dired pages
 
     #+BEGIN_SRC emacs-lisp
-      (use-package dired-details+ :ensure t)
+      (use-package dired-details :ensure t)
     #+END_SRC
 
 

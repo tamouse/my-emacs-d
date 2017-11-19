@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: aggreage_failures
+# key: af
+# group: rspec
+# --
+aggregate_failures do
+$0
+end
