@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: has_many-throuh
+# key: hmt
+# group: Rails
+# --
+has_many :${1:items}, through: :${2:parent}${3:, dependent: :destroy}

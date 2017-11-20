@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: react functional component
+# key: rfp
+# group: react
+# --
+export default () => <div></div>

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: has_many
+# key: hm
+# group: Rails
+# --
+has_many :${1:name}${2:, ->{ where() }}${3:, dependent: :destroy}${4:, class_name: 'Name'}${5:, foreign_key: :name_id}

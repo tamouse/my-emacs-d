@@ -1,0 +1,20 @@
+# -*- snippet -*-
+# name: react.class
+# key: rclass
+# group: react
+# --
+class ${1:Component) extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {}
+  }
+
+  render() {
+    return <div>$1</div>
+  }
+}
+
+$1.propTypes = {}
+$1.defaultProps = {}
+
+export default $1

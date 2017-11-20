@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: validates_presence_of
+# key: vpo
+# group: Rails
+# --
+validates_presence_of :${1:field}${2:, message: "can't be blank"}${3:on: :context}${4:, if: :condition}
