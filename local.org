@@ -1,0 +1,15 @@
+#+STARTUP: overview
+
+* settings
+** personal settings
+
+#+BEGIN_SRC emacs-lisp
+  (setq
+   user-mail-address "tamara.temple@reachlocal.com"
+   user-organization "ReachLocal, Inc"
+   user-home-page    nil
+   user-signature    (concat user-full-name " <" user-mail-address ">")
+   )
+
+#+END_SRC
+
