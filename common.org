@@ -369,6 +369,11 @@
       :empty-lines 1
       :prepend
       )
+     ("d" "diary" entry
+      (file+datetree+prompt org-agenda-diary-file)
+      "* %^{Headline}"
+      :empty-lines 1
+      )
      ("a" "appointment" entry
       (file org-default-notes-file)
       "* %^{Appointment:} %^T"
