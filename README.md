@@ -9,7 +9,6 @@ Clone to a new computer:
 
     git clone git@github.com:tamouse/my-emacs-d.git $HOME/.emacs.d
 	cd $HOME/.emacs.d
-	git checkout -b $(hostname) # create a branch specific to this machine
 	cp init.el-starter .init.el
 
 Make local changes in `local.org`. For example, overriding some
