@@ -231,10 +231,24 @@
    org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
    org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
    org-test-file (expand-file-name (concat org-directory "test.org"))
+   org-html-doctype "html5"
+   org-html-html5-fancy t
    )
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c l") 'org-store-link)
+
+  ;;; Publishing Config
+  (setq
+   org-publish-project-alist
+   '(("knowledge"
+      :base-directory "/Volumes/Projects/Sites/knowledge"
+      :publishing-directory "/Volumes/Projects/Sites/knowledge.pub"
+      :publishing-function org-html-publish-to-html
+      :recursive t
+      :exclude "README\.org"
+      ))
+   )
 #+END_SRC
 *** ditaa
 
