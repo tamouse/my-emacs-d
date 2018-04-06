@@ -3,14 +3,16 @@
 * theme
 
 #+BEGIN_SRC emacs-lisp
-  (use-package color-theme :ensure t)
-  (use-package darkburn-theme :ensure t)
-  (use-package darkmine-theme :ensure t)
-  (use-package darkokai-theme :ensure t)
-  (use-package monokai-theme :ensure t)
-  (use-package zenburn-theme :ensure t)
-  (use-package darkane-theme :ensure t :config (load-theme 'darkane t))
-
+  ;;;(use-package color-theme :ensure t)
+  (use-package color-theme-modern
+    :ensure t
+    :config
+    (add-to-list 'custom-theme-load-path
+                 (file-name-as-directory
+                  (expand-file-name "~/.emacs.d/themes")))
+    (load-theme 'hober t t)
+    (enable-theme 'hober)
+    )
 #+END_SRC
 
 * settings
@@ -269,13 +271,17 @@
     presentations.
 
     #+BEGIN_SRC emacs-lisp
-      (use-package ox-reveal
-        :ensure ox-reveal)
-      (setq org-reveal-root "https://cdn.jsdelivr.net/reveal.js/3.0.0/")
-      (setq org-reveal-mathjax t)
-      (use-package htmlize
-        :ensure t)
+      ;; (use-package ox-reveal
+      ;;   :ensure ox-reveal)
+      ;; (setq org-reveal-root "https://cdn.jsdelivr.net/reveal.js/3.0.0/")
+      ;; (setq org-reveal-mathjax t)
+      ;; (use-package htmlize
+      ;;   :ensure t)
     #+END_SRC
+
+    Seems to require an old version of org, not available any more. I
+    left an issue on the repo.
+
 *** org protocol server
 #+BEGIN_SRC emacs-lisp
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -427,7 +433,7 @@ Connect org-mode with trello.com!
 https://org-trello.github.io/install.html
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org-trello :ensure t)
+  ;; (use-package org-trello :ensure t)
 
 #+END_SRC
 ** dired
@@ -437,8 +443,10 @@ https://org-trello.github.io/install.html
     Hide / show info on dired pages
 
     #+BEGIN_SRC emacs-lisp
-      (use-package dired-details :ensure t)
+      ;; (use-package dired-details :ensure t)
     #+END_SRC
+
+    Seems as though this is gone. 2018-04-06T12-53
 
 
 *** guess command use with the ~!~ dired command
@@ -472,7 +480,7 @@ https://org-trello.github.io/install.html
 *** rest
 #+BEGIN_SRC emacs-lisp
   (setq
-   ruby-use-smie nil
+   ruby-use-smie t
    ruby-comment-column 40
    ruby-deep-arglist nil
    ruby-deep-indent-paren nil
@@ -515,24 +523,44 @@ https://org-trello.github.io/install.html
   (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 #+END_SRC
 
+** web
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode :ensure t
+    :mode
+    ("\\.html\\'" . web-mode)
+    ("\\.erb\\'" . web-mode)
+    ("\\.mustache\\'" . web-mode)
+    ("\\.js?\\'" . web-mode)
+    :config
+    (setq web-mode-tag-auto-close-style t)
+    (setq web-mode-enable-auto-closing t)
+    (setq web-mode-enable-auto-pairing t)
+    (setq web-mode-enable-auto-indentation t)
+    (setq web-mode-enable-auto-opening t)
+    (setq web-mode-enable-auto-quoting t)
+    (setq web-mode-content-types-alist
+      '(("jsx" . "\\.js[x]?\\'"))))
+
+#+END_SRC
+
 ** javascript
 *** js2-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package js2-mode
-    :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsonb\\'" . js2-mode))
-    )
+  ;;;(use-package js2-mode
+  ;;;  :ensure t
+  ;;;  :config
+  ;;;  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;;;  (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
+  ;;;  (add-to-list 'auto-mode-alist '("\\.jsonb\\'" . js2-mode))
+  ;;;  )
 #+END_SRC
 
 *** jsx-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package jsx-mode :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-    )
+  ;;;(use-package jsx-mode :ensure t
+  ;;;  :config
+  ;;;  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+  ;;;  )
 #+END_SRC
 
 *** prettier
@@ -540,12 +568,13 @@ https://org-trello.github.io/install.html
   (use-package prettier-js :ensure t
     :config
     (setq prettier-js-args
-	  '("--no-semi"
-	    "--trailing-comma" "all"
-	    ))
-    (add-hook 'js2-mode-hook 'prettier-js-mode)
+          '("--no-semi"
+            "--trailing-comma" "all"
+            ))
+    ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'web-mode-hook 'prettier-js-mode)
-    (add-hook 'jsx-mode-hook 'prettier-js-mode))
+    ;; (add-hook 'jsx-mode-hook 'prettier-js-mode)
+    )
 #+END_SRC
 
 ** php
@@ -695,20 +724,6 @@ https://org-trello.github.io/install.html
   (use-package slim-mode :ensure t)
 #+END_SRC
 
-** web
-#+BEGIN_SRC emacs-lisp
-  (use-package web-mode :ensure t
-    :config
-    (setq
-     web-mode-css-indent-offset 2
-     web-mode-code-indent-offset 2
-     web-mode-attr-indent-offset 2
-     web-mode-markup-indent-offset 2
-     web-mode-sql-indent-offset 2
-     )
-    )
-
-#+END_SRC
 ** grep
 #+BEGIN_SRC emacs-lisp
   (setq grep-command "grep -nH -e "
