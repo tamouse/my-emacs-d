@@ -220,7 +220,9 @@
     (add-to-list 'company-backends 'company-tern)
     (add-to-list 'company-backends 'company-robe)
     )
-  (use-package company-tern)
+  (use-package company-tern
+    :ensure t
+    )
 #+END_SRC
 
 ** magit
@@ -557,7 +559,8 @@ https://org-trello.github.io/install.html
     ("\\.html\\'" . web-mode)
     ("\\.erb\\'" . web-mode)
     ("\\.mustache\\'" . web-mode)
-    ("\\.js?\\'" . web-mode)
+    ("\\.js\\'" . web-mode)
+    ("\\.jsx\\'" . web-mode)
     :config
     (setq web-mode-tag-auto-close-style t)
     (setq web-mode-enable-auto-closing t)
