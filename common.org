@@ -208,6 +208,21 @@
 
 
 * modes
+** company
+
+   Complete Anything http://company-mode.github.io/
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+    (add-to-list 'company-backends 'company-tern)
+    (add-to-list 'company-backends 'company-robe)
+    )
+  (use-package company-tern)
+#+END_SRC
+
 ** magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -470,6 +485,18 @@ https://org-trello.github.io/install.html
 
 #+END_SRC
 ** ruby
+*** robe
+    #+BEGIN_SRC emacs-lisp
+      (use-package robe
+	:ensure t
+	:config
+	(add-hook 'ruby-mode-hook 'robe-mode)
+	)
+    #+END_SRC
+*** inf-ruby
+    #+BEGIN_SRC emacs-lisp
+      (use-package inf-ruby)
+    #+END_SRC
 *** ruby tools
 
 #+BEGIN_SRC emacs-lisp
@@ -616,6 +643,15 @@ https://org-trello.github.io/install.html
 
 #+END_SRC
 
+** flycheck
+   http://www.flycheck.org/en/latest/user/installation.html
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck
+       :ensure t
+       :init (global-flycheck-mode)
+       )
+   #+END_SRC
 ** elixir
 #+BEGIN_SRC emacs-lisp
   (use-package alchemist
