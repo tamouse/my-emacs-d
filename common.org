@@ -213,15 +213,13 @@
    Complete Anything http://company-mode.github.io/
 
 #+BEGIN_SRC emacs-lisp
+  (use-package company-tern :ensure t)
   (use-package company
     :ensure t
     :config
     (add-hook 'after-init-hook 'global-company-mode)
     (add-to-list 'company-backends 'company-tern)
     (add-to-list 'company-backends 'company-robe)
-    )
-  (use-package company-tern
-    :ensure t
     )
 #+END_SRC
 
@@ -232,12 +230,20 @@
     :bind (("C-c m" . magit-status)))
 #+END_SRC
 ** org
+*** load 9.1.9
+    This doesn't really work, see https://github.com/jwiegley/use-package/issues/319
+
+    So you need to force install it using something like the
+    following: (see https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027)
+
+    #+BEGIN_SRC emacs-lisp
+      (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
+	(package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+      (require 'org)
+    #+END_SRC
 *** settings
 
 #+BEGIN_SRC emacs-lisp
-  (eval-after-load "org"
-    '(require 'ox-md nil t))
-
   (setq
    org-directory "~/Google Drive/org/"
    org-default-notes-file (concat org-directory "inbox.org")
@@ -287,17 +293,15 @@
     Reveal.js is a cool javascript library to create slide
     presentations.
 
+    You *must* *must* *must* install org v9.1.9 from elpa, then grab
+    the ox-reveal.el file from github
+    https://github.com/yjwen/org-reveal following the manual
+    instructions.
+
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package ox-reveal
-      ;;   :ensure ox-reveal)
-      ;; (setq org-reveal-root "https://cdn.jsdelivr.net/reveal.js/3.0.0/")
-      ;; (setq org-reveal-mathjax t)
-      ;; (use-package htmlize
-      ;;   :ensure t)
+      (require 'ox-reveal)
     #+END_SRC
 
-    Seems to require an old version of org, not available any more. I
-    left an issue on the repo.
 
 *** org protocol server
 #+BEGIN_SRC emacs-lisp
@@ -443,16 +447,7 @@
   (add-to-list 'auto-mode-alist '("\\.te\?xt\\'" . org-mode))
 
 #+END_SRC
-*** org-trello
 
-Connect org-mode with trello.com!
-
-https://org-trello.github.io/install.html
-
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package org-trello :ensure t)
-
-#+END_SRC
 ** dired
 
 *** dired-details
