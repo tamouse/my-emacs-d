@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: react componentDidMount
+# key: cdm
+# group: react
+# --
+componentDidMount() {$0}

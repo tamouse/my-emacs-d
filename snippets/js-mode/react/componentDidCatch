@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: react componentDidCatch
+# key: cdc
+# group: react
+# --
+componentDidCatch(error, info) {$0}

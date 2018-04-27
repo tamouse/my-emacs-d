@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fat-arrow function
+# key: fa
+# --
+(${1:args}) => {$0}

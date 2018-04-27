@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: react this.setState
+# key: ss
+# group: react
+# --
+this.setState({$0})

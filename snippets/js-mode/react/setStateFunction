@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: react this.setState function
+# key: ssf
+# group: react
+# --
+this.setState((prevState, props) => {
+return {$0}
+})

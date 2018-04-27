@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: js case clause (for switch)
+# key: case
+# --
+case ${1:value}:
+$0// statements
+break;

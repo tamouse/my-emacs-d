@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: js switch statement
+# key: switch
+# --
+switch (${1:condition}) {
+case ${2:value}:
+$0// statements
+break;
+
+default:
+// statements
+break;
+
+}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: js dereference
+# key: deref
+# --
+const { ${2:key} } = ${1:object}
