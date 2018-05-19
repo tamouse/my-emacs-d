@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: context consumer
+# key: consumer
+# group: react
+# --
+<${1:Context}.Consumer>
+  $0
+</$1.Consumer>

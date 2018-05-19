@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: react-bootstrap Panel
+# key: Panel
+# group: react
+# --
+<Panel>
+  <Panel.Heading>
+    <Panel.Title componentClass="h3">
+      ${1:panel title}
+    </Panel.Title>
+  </Panel.Heading>
+  <Panel.Body>
+    $0
+  </Panel.Body>
+  ${2:<Panel.Footer>
+    panel footer
+  </Panel.Footer>}
+</Panel>

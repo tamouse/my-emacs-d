@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: react context provider
+# key: provider
+# group: react
+# --
+<${1:Context}.Provider value={${2:value}} >
+  $0
+</$1.Provider>
