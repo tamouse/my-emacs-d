@@ -206,8 +206,17 @@
   (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
 #+END_SRC
 
-
 * modes
+** emojify
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package emojify
+       :ensure t
+       :config
+       (add-hook 'after-init-hook 'global-emojify-mode))
+   #+END_SRC
+
+   can i show an emoji :smile:
 ** company
 
    Complete Anything http://company-mode.github.io/
@@ -959,7 +968,6 @@
       ("C-c C-<" . mc/mark-all-like-this)))
 
  #+END_SRC
-
 
 
 * snippets
