@@ -256,6 +256,8 @@
    org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
    org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
    org-test-file (expand-file-name (concat org-directory "test.org"))
+   org-work-notes (expand-file-name (concat org-directory "WorkNotes.org"))
+   org-work-diary (expand-file-name (concat org-directory "WorkDiary.org"))
    org-html-doctype "html5"
    org-html-html5-fancy t
    )
@@ -327,6 +329,21 @@
    org-capture-templates
    (quote
     (
+     ("W" "Templates for Work")
+     ("WD" "Work Diary Entry" entry
+      (file+datetree+prompt org-work-diary)
+      "* %?"
+      :empty-lines 1)
+     ("WT" "Work Todo" entry
+      (file org-work-notes "TODOS")
+      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :clock-in t
+      :clock-resume t
+      :empty-lines 1)
+     ("WN" "Work Inbox" entry
+      (file org-work-notes "INBOX")
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1)
      ("p" "Templates for personal care")
      ("pi" "Insulin taken" entry
       (file+datetree+prompt org-personal-care-file)
@@ -594,7 +611,7 @@
     :config
     (setq prettier-js-args
           '("--no-semi"
-            "--trailing-comma" "all"
+            "--no-trailing-comma" "all"
             ))
     ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'web-mode-hook 'prettier-js-mode)
