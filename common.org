@@ -620,7 +620,7 @@
     :config
     (setq prettier-js-args
           '("--no-semi"
-            "--no-trailing-comma" "all"
+            "--no-trailing-comma all"
             ))
     ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'web-mode-hook 'prettier-js-mode)
