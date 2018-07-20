@@ -1,0 +1,3 @@
+2018-07-20  Tamara Temple  <tamara@gannett.com>
+
+        * common.org: remove auto-fill-mode whereever, and substitute global visual line mode
