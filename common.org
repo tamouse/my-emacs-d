@@ -51,7 +51,6 @@
 
      (defalias 'yes-or-no-p 'y-or-n-p)
      (add-hook 'before-save-hook 'delete-trailing-whitespace)
-     (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
      ;;; Don't clutter up directories with backup files
      (setq
@@ -207,6 +206,11 @@
 #+END_SRC
 
 * modes
+** Visual Line Mode
+
+   #+BEGIN_SRC emacs-lisp
+     (global-visual-line-mode nil) 		; enable everywhere
+   #+END_SRC
 ** emojify
 
    #+BEGIN_SRC emacs-lisp
@@ -1007,7 +1011,6 @@
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-SPC")	'fixup-whitespace)
 (global-set-key (kbd "C-x C-o") 'delete-blank-lines)
-(global-set-key (kbd "C-c M-a f") 'auto-fill-mode)
 (global-set-key (kbd "C-x \\")	'align-regexp)
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 (global-set-key (kbd "M-/") 'hippie-expand)
