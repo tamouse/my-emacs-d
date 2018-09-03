@@ -19,3 +19,4 @@ request/
 .mc-lists.el
 *.el
 themes/
+/games/
