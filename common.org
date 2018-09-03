@@ -214,6 +214,17 @@
   (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
 #+END_SRC
 
+** Convert markdown to org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (defun markdown-convert-buffer-to-org ()
+    "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+      (interactive)
+      (shell-command-on-region (point-min) (point-max)
+			       (format "pandoc -f markdown -t org --wrap=none -o %s"
+				       (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+
+#+END_SRC
 * modes
 ** Visual Line Mode
 
