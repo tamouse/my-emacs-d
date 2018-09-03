@@ -149,6 +149,15 @@
     (insert (concat "date: " (jekyll-time-string))))
 #+END_SRC
 
+** Insert ISO8601 time stamp
+
+#+BEGIN_SRC emacs-lisp
+  (defun insert-iso8601-time-stamp ()
+    "Insert the ISO601 time stamp"
+    (interactive)
+    (insert (format-time-string "%FT%T%z"))
+    )
+#+END_SRC
 ** Functions that change case and style of multiword identifiers
 #+BEGIN_SRC emacs-lisp
   (defun snakify-text (start end)
@@ -580,7 +589,6 @@
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode :ensure t
     :mode
-    ("\\.html\\'" . web-mode)
     ("\\.erb\\'" . web-mode)
     ("\\.mustache\\'" . web-mode)
     ("\\.js\\'" . web-mode)
@@ -596,6 +604,8 @@
       '(("jsx" . "\\.js[x]?\\'"))))
 
 #+END_SRC
+
+** html
 
 ** javascript
 *** js2-mode

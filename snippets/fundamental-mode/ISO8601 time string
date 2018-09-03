@@ -1,0 +1,4 @@
+# key: iso
+# name: ISO8601 time string
+# --
+`(format-time-string "%FT%T%z")`
