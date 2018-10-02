@@ -1,7 +1,10 @@
 # These are for local configuration
 local.org
 local.el
+local-settings.org
+local-settings.el
 
+/extras/
 
 .trello
 elpa/

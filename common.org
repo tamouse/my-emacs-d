@@ -206,42 +206,6 @@
 #+END_SRC
 
 * modes
-** Visual Line Mode
-
-   #+BEGIN_SRC emacs-lisp
-     (global-visual-line-mode nil) 		; enable everywhere
-   #+END_SRC
-** emojify
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package emojify
-       :ensure t
-       :config
-       (add-hook 'after-init-hook 'global-emojify-mode))
-   #+END_SRC
-
-   can i show an emoji :smile:
-** company
-
-   Complete Anything http://company-mode.github.io/
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company-tern :ensure t)
-  (use-package company
-    :ensure t
-    :config
-    (add-hook 'after-init-hook 'global-company-mode)
-    (add-to-list 'company-backends 'company-tern)
-    (add-to-list 'company-backends 'company-robe)
-    )
-#+END_SRC
-
-** magit
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :ensure t
-    :bind (("C-c m" . magit-status)))
-#+END_SRC
 ** org
 *** load 9.1.9
     This doesn't really work, see https://github.com/jwiegley/use-package/issues/319
@@ -251,26 +215,32 @@
 
     #+BEGIN_SRC emacs-lisp
       (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
-	(package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+        (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
       (require 'org)
+
     #+END_SRC
 *** settings
 
 #+BEGIN_SRC emacs-lisp
+  ;;; set org-directory in local-settings.org if it isn't this:
+  (if (not (boundp 'org-directory))
+      (setq org-directory "~/Google Docs/org/")
+    nil)
+
   (setq
-   org-directory "~/Google Drive/org/"
-   org-default-notes-file (concat org-directory "inbox.org")
-   org-capture-default-template "w"
-   org-agenda-diary-file (concat org-directory "diary.org")
+   org-agenda-files (list (expand-file-name org-directory))
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
-   org-personal-care-file (expand-file-name (concat org-directory "personal_care.org"))
-   org-journal-file (expand-file-name (concat org-directory "journal.org"))
-   org-process-journal-file (expand-file-name (concat org-directory "process_journal.org"))
-   org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
-   org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
-   org-test-file (expand-file-name (concat org-directory "test.org"))
-   org-work-notes (expand-file-name (concat org-directory "WorkNotes.org"))
-   org-work-diary (expand-file-name (concat org-directory "WorkDiary.org"))
+   org-capture-default-template "w"
+   org-default-notes-file "inbox.org"
+   org-agenda-diary-file "diary.org"
+   org-personal-care-file "personal_care.org"
+   org-journal-file "journal.org"
+   org-process-journal-file "process_journal.org"
+   org-link-journal-file "link_journal.org"
+   org-quotes-file "quotes.org"
+   org-test-file "test.org"
+   org-work-notes "WorkNotes.org"
+   org-work-diary "WorkDiary.org"
    org-html-doctype "html5"
    org-html-html5-fancy t
    )
@@ -344,81 +314,81 @@
     (
      ("W" "Templates for Work")
      ("WD" "Work Diary Entry" entry
-      (file+datetree+prompt org-work-diary)
+      (file+datetree+prompt  org-work-diary)
       "* %?"
       :empty-lines 1)
      ("WT" "Work Todo" entry
-      (file+headline org-work-notes "TODOS")
+      (file+headline  org-work-notes "TODOS")
       "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :clock-in t
       :clock-resume t
       :empty-lines 1)
      ("WN" "Work Inbox" entry
-      (file+headline org-work-notes "INBOX")
+      (file+headline  org-work-notes "INBOX")
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1)
      ("p" "Templates for personal care")
      ("pi" "Insulin taken" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :immediate-finish t
       :empty-lines 1
       )
      ("pg" "Glucose Reading" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* Glucose Reading %^{GLUCOSE_READING}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
       :immediate-finish t
       :empty-lines 1
       )
      ("pc" "Carbs Planned" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* Carbs Planned %^{CARBS_PLANNED}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
       :immediate-finish nil
       :empty-lines 1
       )
      ("pm" "Meds taken" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* Meds taken %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :immediate-finish nil
       :empty-lines 1
       )
      ("pn" "Personal Care Note" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* &? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
      ("pb" "Breakfast" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* breakfast notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
      ("pl" "Lunch" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* lunch notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
      ("ps" "Supper" entry
-      (file+datetree+prompt org-personal-care-file)
+      (file+datetree+prompt  org-personal-care-file)
       "* supper notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
      ("j" "Templates for journal capture")
      ("jj" "Journal Entry" entry
-      (file+datetree+prompt org-journal-file)
+      (file+datetree+prompt  org-journal-file)
       "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :clock-in t
       :clock-resume t
       :empty-lines 1
       )
      ("jp" "Process Journal Entry" entry
-      (file+datetree+prompt org-process-journal-file)
+      (file+datetree+prompt  org-process-journal-file)
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :clock-in t
       :clock-resume t
       :empty-lines 1
       )
      ("jl" "Link Journal Entry" entry
-      (file+datetree+prompt org-link-journal-file)
+      (file+datetree+prompt  org-link-journal-file)
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
@@ -429,38 +399,38 @@
       :prepend
       )
      ("q" "Quotes" entry
-      (file org-quotes-file)
+      (file  org-quotes-file)
       "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       :preprend
       )
      ("t" "todo" entry
-      (file+headine org-default-notes-file "TODOS")
+      (file+headine  org-default-notes-file "TODOS")
       "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       :prepend
       )
      ("d" "diary" entry
-      (file+datetree+prompt org-agenda-diary-file)
+      (file+datetree+prompt  org-agenda-diary-file)
       "* %^{Headline}"
       :empty-lines 1
       )
      ("a" "appointment" entry
-      (file org-default-notes-file)
+      (file  org-default-notes-file)
       "* %^{Appointment:} %^T"
       )
      ("T" "Test" entry
-      (file org-test-file)
+      (file  org-test-file)
       "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       empty-lines 1
       )
      ("w" "Default Org-protocol Capture Template" entry
-      (file+datetree org-link-journal-file)
+      (file+datetree  org-link-journal-file)
       "* %:description %(org-set-property \"CAPTURE_DATE\" \"%U\")%(org-set-property \"LINK\" \"%:link\")%(org-set-property \"TITLE\" \"%:description\")\n%:initial\n"
       :empty-lines 1
       )
      ("x" "alt org-prot template" entry
-      (file org-test-file)
+      (file  org-test-file)
       "* testing org-capture with json
   %:link
   %:description
@@ -477,6 +447,42 @@
 
 #+END_SRC
 
+** Visual Line Mode
+
+   #+BEGIN_SRC emacs-lisp
+     (global-visual-line-mode nil) 		; enable everywhere
+   #+END_SRC
+** emojify
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package emojify
+       :ensure t
+       :config
+       (add-hook 'after-init-hook 'global-emojify-mode))
+   #+END_SRC
+
+   can i show an emoji :smile:
+** company
+
+   Complete Anything http://company-mode.github.io/
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-tern :ensure t)
+  (use-package company
+    :ensure t
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+    (add-to-list 'company-backends 'company-tern)
+    (add-to-list 'company-backends 'company-robe)
+    )
+#+END_SRC
+
+** magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :bind (("C-c m" . magit-status)))
+#+END_SRC
 ** dired
 
 *** dired-details

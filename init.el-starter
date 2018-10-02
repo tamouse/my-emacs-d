@@ -10,10 +10,23 @@
   (normal-top-level-add-subdirs-to-load-path))
 (package-initialize)
 (unless (package-installed-p 'use-package) (package-refresh-contents) (package-install 'use-package))
-(org-babel-load-file (expand-file-name "~/.emacs.d/common.org"))
-(if (file-exists-p (expand-file-name "~/.emacs.d/local.org"))
-  (org-babel-load-file (expand-file-name "~/.emacs.d/local.org"))
+
+(setq common-file (expand-file-name "~/.emacs.d/common.org"))
+(setq local-settings-file (expand-file-name "~/.emacs.d/local-settings.org"))
+(setq local-file (expand-file-name "~/.emacs.d/local.org"))
+
+;;; local settings that need to be set *before* the common stuff
+(if (file-exists-p local-settings-file)
+    (org-babel-load-file local-settings-file)
+    nil)
+
+(org-babel-load-file common-file)
+
+;;; local stuff that can come after the common stuff
+(if (file-exists-p local-file)
+  (org-babel-load-file local-file)
   nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
