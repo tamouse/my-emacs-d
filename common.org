@@ -149,6 +149,15 @@
     (insert (concat "date: " (jekyll-time-string))))
 #+END_SRC
 
+** Insert ISO8601 time stamp
+
+#+BEGIN_SRC emacs-lisp
+  (defun insert-iso8601-time-stamp ()
+    "Insert the ISO601 time stamp"
+    (interactive)
+    (insert (format-time-string "%FT%T%z"))
+    )
+#+END_SRC
 ** Functions that change case and style of multiword identifiers
 #+BEGIN_SRC emacs-lisp
   (defun snakify-text (start end)
@@ -205,6 +214,17 @@
   (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
 #+END_SRC
 
+** Convert markdown to org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (defun markdown-convert-buffer-to-org ()
+    "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+      (interactive)
+      (shell-command-on-region (point-min) (point-max)
+			       (format "pandoc -f markdown -t org --wrap=none -o %s"
+				       (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+
+#+END_SRC
 * modes
 ** org
 *** load 9.1.9
@@ -584,7 +604,6 @@
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode :ensure t
     :mode
-    ("\\.html\\'" . web-mode)
     ("\\.erb\\'" . web-mode)
     ("\\.mustache\\'" . web-mode)
     ("\\.js\\'" . web-mode)
@@ -600,6 +619,8 @@
       '(("jsx" . "\\.js[x]?\\'"))))
 
 #+END_SRC
+
+** html
 
 ** javascript
 *** js2-mode
