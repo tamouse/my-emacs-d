@@ -231,16 +231,16 @@
    org-agenda-files (list (expand-file-name org-directory))
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
    org-capture-default-template "w"
-   org-default-notes-file "inbox.org"
-   org-agenda-diary-file "diary.org"
-   org-personal-care-file "personal_care.org"
-   org-journal-file "journal.org"
-   org-process-journal-file "process_journal.org"
-   org-link-journal-file "link_journal.org"
-   org-quotes-file "quotes.org"
-   org-test-file "test.org"
-   org-work-notes "WorkNotes.org"
-   org-work-diary "WorkDiary.org"
+   org-default-notes-file (expand-file-name (concat org-directory "inbox.org"))
+   org-agenda-diary-file (expand-file-name (concat org-directory "diary.org"))
+   org-personal-care-file (expand-file-name (concat org-directory "personal_care.org"))
+   org-journal-file (expand-file-name (concat org-directory "journal.org"))
+   org-process-journal-file (expand-file-name (concat org-directory "process_journal.org"))
+   org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
+   org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
+   org-test-file (expand-file-name (concat org-directory "test.org"))
+   org-work-notes (expand-file-name (concat org-directory "WorkNotes.org"))
+   org-work-diary (expand-file-name (concat org-directory "WorkDiary.org"))
    org-html-doctype "html5"
    org-html-html5-fancy t
    )
@@ -314,9 +314,9 @@
     (
      ("W" "Templates for Work")
      ("WD" "Work Diary Entry" entry
-      (file+datetree+prompt  org-work-diary)
-      "* %?"
-      :empty-lines 1)
+      (file+olp+datetree  org-work-diary)
+      "* %U %? %(org-set-property \"CAPTURE_DATE\" \"%U\") "
+      :empty-lines 1 :time-prompt 1)
      ("WT" "Work Todo" entry
       (file+headline  org-work-notes "TODOS")
       "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
@@ -329,66 +329,76 @@
       :empty-lines 1)
      ("p" "Templates for personal care")
      ("pi" "Insulin taken" entry
-      (file+datetree+prompt  org-personal-care-file)
-      "* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :immediate-finish t
-      :empty-lines 1
-      )
+       (file+olp+datetree  org-personal-care-file)
+       "* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :immediate-finish t
+       :empty-lines 1
+       :time-prompt 1
+       )
      ("pg" "Glucose Reading" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+olp+datetree  org-personal-care-file)
       "* Glucose Reading %^{GLUCOSE_READING}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
       :immediate-finish t
       :empty-lines 1
+      :time-prompt 1
       )
      ("pc" "Carbs Planned" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+old+datetree  org-personal-care-file)
       "* Carbs Planned %^{CARBS_PLANNED}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
       :immediate-finish nil
       :empty-lines 1
+      :time-prompt 1
       )
      ("pm" "Meds taken" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+olp+datetree  org-personal-care-file)
       "* Meds taken %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :immediate-finish nil
       :empty-lines 1
+      :time-prompt 1
       )
      ("pn" "Personal Care Note" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+olp+datetree  org-personal-care-file)
       "* &? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
+      :time-prompt 1
       )
      ("pb" "Breakfast" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+olp+datetree  org-personal-care-file)
       "* breakfast notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
+      :time-prompt 1
       )
      ("pl" "Lunch" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+olp+datetree  org-personal-care-file)
       "* lunch notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
+      :time-prompt 1
       )
      ("ps" "Supper" entry
-      (file+datetree+prompt  org-personal-care-file)
+      (file+olp+datetree  org-personal-care-file)
       "* supper notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
+      :time-prompt 1
       )
      ("j" "Templates for journal capture")
      ("jj" "Journal Entry" entry
-      (file+datetree+prompt  org-journal-file)
+      (file+olp+datetree  org-journal-file)
       "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :clock-in t
       :clock-resume t
       :empty-lines 1
+      :time-prompt 1
       )
      ("jp" "Process Journal Entry" entry
-      (file+datetree+prompt  org-process-journal-file)
+      (file+olp+datetree  org-process-journal-file)
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :clock-in t
       :clock-resume t
       :empty-lines 1
+      :time-prompt 1
       )
      ("jl" "Link Journal Entry" entry
-      (file+datetree+prompt  org-link-journal-file)
+      (file+olp+datetree  org-link-journal-file)
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
@@ -411,31 +421,19 @@
       :prepend
       )
      ("d" "diary" entry
-      (file+datetree+prompt  org-agenda-diary-file)
+      (file+olp+datetree  org-agenda-diary-file)
       "* %^{Headline}"
       :empty-lines 1
+      :time-prompt 1
       )
      ("a" "appointment" entry
-      (file  org-default-notes-file)
+      (file+headline  org-default-notes-file "APPOINTMENTS")
       "* %^{Appointment:} %^T"
       )
-     ("T" "Test" entry
-      (file  org-test-file)
-      "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      empty-lines 1
-      )
      ("w" "Default Org-protocol Capture Template" entry
-      (file+datetree  org-link-journal-file)
+      (file+olp+datetree  org-link-journal-file)
       "* %:description %(org-set-property \"CAPTURE_DATE\" \"%U\")%(org-set-property \"LINK\" \"%:link\")%(org-set-property \"TITLE\" \"%:description\")\n%:initial\n"
       :empty-lines 1
-      )
-     ("x" "alt org-prot template" entry
-      (file  org-test-file)
-      "* testing org-capture with json
-  %:link
-  %:description
-  %:initial
-  "
       )
      )))
 #+END_SRC
