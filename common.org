@@ -31,23 +31,23 @@
 ** General settings for everyday use.
    #+BEGIN_SRC emacs-lisp
      (setq visible-bell nil
-   	ring-bell-function 'ignore
-   	indent-tabs-mode nil
-   	echo-keystrokes 0.1
-   	font-lock-maximum-decoration t
-   	transient-mark-mode t
-   	delete-by-moving-to-trash t
-   	truncate-partial-width-windows nil
-   	uniquify-buffer-name-style 'forward
-   	whitespace-style '(trailing lines space-before-tab
+        ring-bell-function 'ignore
+        indent-tabs-mode nil
+        echo-keystrokes 0.1
+        font-lock-maximum-decoration t
+        transient-mark-mode t
+        delete-by-moving-to-trash t
+        truncate-partial-width-windows nil
+        uniquify-buffer-name-style 'forward
+        whitespace-style '(trailing lines space-before-tab
                                        indentation space-after-tab)
-   	xterm-mouse-mode t
-   	save-place-file "~/.emacs.d/places"
-   	fill-column 80
-   	ido-auto-merge-delay-time 3
-   	netrc-file "~/.netrc"
-   	css-indent-offset 2
-   	)
+        xterm-mouse-mode t
+        save-place-file "~/.emacs.d/places"
+        fill-column 80
+        ido-auto-merge-delay-time 3
+        netrc-file "~/.netrc"
+        css-indent-offset 2
+        )
 
      (defalias 'yes-or-no-p 'y-or-n-p)
      (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -57,7 +57,7 @@
       backup-directory-alist
       `(("." .
          ,(expand-file-name
-   	(concat "~/.emacs.d/backups"))
+        (concat "~/.emacs.d/backups"))
          )
         )
       )
@@ -233,11 +233,14 @@
     So you need to force install it using something like the
     following: (see https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027)
 
-    #+BEGIN_SRC emacs-lisp
-      (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
-        (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
-      (require 'org)
+    Ignoring all the above, instead download the latest package from the archives and install it in "~/.emacs.d/extras". See ~init.el-starter~
 
+    #+BEGIN_SRC emacs-lisp
+      ;; (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
+        ;; (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+      (require 'org)
+      (require 'ox-md)
+      (require 'ox-reveal)
     #+END_SRC
 *** settings
 
@@ -247,6 +250,11 @@
       (setq org-directory "~/Google Docs/org/")
     nil)
 
+  (add-hook
+   'org-mode-hook
+   (lambda ()
+     (flycheck-mode -1))
+   )
   (setq
    org-agenda-files (list (expand-file-name org-directory))
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
@@ -267,6 +275,7 @@
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c l") 'org-store-link)
+  (define-key org-mode-map (kbd "C-c !") 'org-time-stamp-inactive)
 
   ;;; Publishing Config
   (setq
@@ -698,12 +707,15 @@
 ** flycheck
    http://www.flycheck.org/en/latest/user/installation.html
 
+   Disabling ruby-reek and emacs-lisp-checkdoc as overkill.
+   - [[https://stackoverflow.com/questions/15552349/hw-to-disable-flycheck-warning-while-editing-emacs-lisp-scripts#15556197][disabling emacs-lisp-checkdoc]]
+
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
        :ensure t
        :init (global-flycheck-mode)
        :config
-       (setq-default flycheck-disabled-checkers '(ruby-reek))
+       (setq-default flycheck-disabled-checkers '(ruby-reek emacs-lisp-checkdoc))
        )
    #+END_SRC
 ** elixir

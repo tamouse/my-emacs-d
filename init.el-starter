@@ -1,6 +1,17 @@
+;;; -*- emacs-lisp -*-
+
 (setq default-frame-alist '((width . 200) (height . 70) (menu-bar-lines . 1)))
 (setq inhibit-startup-message t)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/extras/"))
+
+;; Org mode is so important to me, make sure it's installed before doing anything else
+(if (file-exists-p (expand-file-name "~/.emacs.d/extras/org-9.1.14"))
+  (progn
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/extras/org-9.1.14"))
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/extras/org-9.1.14/contrib" ) t)
+    )
+  (error "%s" "YOU MUST INSTALL ORG MODE FROM ARCHIVE AND INSTALL IN ~/.emacs.d/extras")
+  )
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
