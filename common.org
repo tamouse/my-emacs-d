@@ -214,6 +214,16 @@
   (global-set-key (kbd "C-x /")	'comment-or-uncomment-line-or-region)
 #+END_SRC
 
+** Enable a minor mode only when buffer file name matches a regexp
+
+   #+BEGIN_SRC emacs-lisp
+     (defun enable-minor-mode (my-pair)
+       "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
+       (if (buffer-file-name)
+	   (if (string-match (car my-pair) buffer-file-name)
+	   (funcall (cdr my-pair)))))
+   #+END_SRC
+
 ** Convert markdown to org-mode
 
 #+BEGIN_SRC emacs-lisp
@@ -245,11 +255,6 @@
 *** settings
 
 #+BEGIN_SRC emacs-lisp
-  ;;; set org-directory in local-settings.org if it isn't this:
-  (if (not (boundp 'org-directory))
-      (setq org-directory "~/Google Docs/org/")
-    nil)
-
   (add-hook
    'org-mode-hook
    (lambda ()
@@ -613,10 +618,9 @@
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode :ensure t
     :mode
-    ("\\.erb\\'" . web-mode)
+    ("\\.html\\.erb\\'" . web-mode)
+    ("\\.html\\.ejs\\'" . web-mode)
     ("\\.mustache\\'" . web-mode)
-    ("\\.js\\'" . web-mode)
-    ("\\.jsx\\'" . web-mode)
     :config
     (setq web-mode-tag-auto-close-style t)
     (setq web-mode-enable-auto-closing t)
@@ -624,8 +628,7 @@
     (setq web-mode-enable-auto-indentation t)
     (setq web-mode-enable-auto-opening t)
     (setq web-mode-enable-auto-quoting t)
-    (setq web-mode-content-types-alist
-      '(("jsx" . "\\.js[x]?\\'"))))
+    )
 
 #+END_SRC
 
@@ -651,17 +654,37 @@
   ;;;  )
 #+END_SRC
 
+*** rjsx-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rjsx-mode
+    :ensure t
+    :mode
+    ("\\.jsx?\\'" . rjsx-mode)
+    ("\\.jsx?\\.erb\\'" . rjsx-mode)
+    ("\\.jsx?\\.ejs\\'" . rjsx-mode)
+    ("\\.json\\'" . rjsx-mode)
+    )
+
+#+END_SRC
+
 *** prettier
 #+BEGIN_SRC emacs-lisp
   (use-package prettier-js :ensure t
     :config
-    (setq prettier-js-args
-          '("--no-semi"
-            "--no-trailing-comma all"
-            ))
-    ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
-    (add-hook 'web-mode-hook 'prettier-js-mode)
+    ;; (setq prettier-js-args
+    ;; 	'("--no-semi"
+    ;; 	  "--no-trailing-comma all"
+    ;; 	  ))
+    (add-hook 'web-mode-hook
+	      #'(lambda ()
+		  (enable-minor-mode
+		   '("\\.jsx?\\'" . prettier-js-mode)
+		   ))
+	      )
     ;; (add-hook 'jsx-mode-hook 'prettier-js-mode)
+    ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
+    (add-hook 'rjsx-mode-hook 'prettier-js-mode)
     )
 #+END_SRC
 
