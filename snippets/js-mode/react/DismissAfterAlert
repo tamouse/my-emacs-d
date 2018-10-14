@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: DismissAfterAlert
+# key: DismissAfterAlert
+# group: react
+# --
+class DismissAfterAlert extends React.Component {
+  componentDidMount() {
+    this._timeout = setTimeout(this.props.onDismiss, this.props.dismissAfter);
+  }
+  componentWillUnmount() {
+    clearTimeout(this._timeout);
+  }
+  render() {
+    return <Alert {...this.props} />;
+  }
+}
