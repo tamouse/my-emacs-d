@@ -440,19 +440,19 @@
       (file+headline org-default-notes-file "NOTES")
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
-      :prepend
+      :prepend 1
+      )
+     ("t" "todo" entry
+      (file+headline org-default-notes-file "TODOS")
+      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      :prepend 1
       )
      ("q" "Quotes" entry
       (file  org-quotes-file)
       "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
-      :preprend
-      )
-     ("t" "todo" entry
-      (file+headine  org-default-notes-file "TODOS")
-      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :prepend
+      :preprend 1
       )
      ("d" "diary" entry
       (file+olp+datetree  org-agenda-diary-file)
