@@ -1,3 +1,4 @@
+# -*- mode: snippet; require-final-newline: nil
 # key: iso
 # name: ISO8601 time string
 # --
