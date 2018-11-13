@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: it (spec testing)
 # key: it
+# group: specs
 # --
 it("${1:should }", () => {$0})

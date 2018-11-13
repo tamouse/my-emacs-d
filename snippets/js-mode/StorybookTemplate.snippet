@@ -1,0 +1,41 @@
+# -*- mode: snippet -*-
+# name: Storybook Template
+# key: storybook
+# group: react
+# --
+import React from "react"
+import T from "prop-types"
+import { storiesOf } from "@storybook/react"
+import { action } from "@storybook/addon-actions"
+import { Panel } from "react-bootstrap"
+import DocStringSection from "$0"
+
+import { ${1:Component} } from "./${2:index}.js"
+import docString from "./$2.md"
+
+class Consumer extends React.Component {
+render() {
+return (
+<Panel>
+<Panel.Heading>
+<Panel.Title componentClass="h3">
+$1 Story
+</Panel.Title>
+</Panel.Heading>
+<Panel.Body>
+<$2 {...this.props} />
+</Panel.Body>
+<Panel.Footer>
+<DocStringSection dangerouslySetInnerHTML={{ __html: docString }} />
+</Panel.Footer>
+</Panel>
+)
+}
+}
+
+storiesOf("$1", module)
+.add("${3:label}", () => {
+const props = {}
+
+return <Consumer {...props} />
+})
