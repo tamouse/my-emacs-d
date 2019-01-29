@@ -1,0 +1,22 @@
+# key: blog
+# name: org mode blog
+# --
+* ${1:Blog Title}
+  :PROPERTIES:
+  :KEYWORDS: ${2:keywords}
+  :CAPTURE_DATE: ${3:`(current-time-string)`}
+  :LAST_UPDATE: Time-stamp: <2019-01-21 16:56:33 tamara.temple>
+  :END:
+
+- keywords: $2
+- capture date: $3
+- last updated: Time-stamp: <2019-01-21 16:41:30 tamara.temple>
+
+$0
+
+#+BEGIN_COMMENT
+Local Variables:
+time-stamp-count: 2
+time-stamp-line-limit: 20
+End:
+#+END_COMMENT
