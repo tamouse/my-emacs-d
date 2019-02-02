@@ -1,0 +1,3 @@
+#+BEGIN_SRC emacs-lisp
+  (setq org-directory (expand-file-name "~/GoogleDrive/org/"))
+#+END_SRC
