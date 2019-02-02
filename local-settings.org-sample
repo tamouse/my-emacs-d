@@ -1,3 +1,7 @@
+Copy this to ~local-settings.org~ and modify the path to where your org files live. If you don't have ~org-directory~ set before ~common.org~ is loaded, Emacs Org-Mode will assume your org files live at "~/org" (which isn't necessarily a bad choice).
+
+NOTE: Do not forget the trailing slash for the ~org-directory~ setting. It's prepended to all the necessary files.
+
 #+BEGIN_SRC emacs-lisp
   (setq org-directory (expand-file-name "~/GoogleDrive/org/"))
 #+END_SRC
