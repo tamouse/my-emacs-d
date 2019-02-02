@@ -1,0 +1,6 @@
+# -*- mode: snippet, require-final-newline: nil -*-
+# name: graphql argument
+# key: arg
+# group: graphql
+# --
+argument :${1:arg}, ${2:type}, required: ${3:false}, camelize: ${4:false}

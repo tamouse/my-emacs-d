@@ -1,6 +1,6 @@
-# -*- mode: snippet -*-
-# name: graphql object type field
-# key: f
+# -*- mode: snippet, require-final-newline: nil -*-
+# name: GraphQl Field
+# key: fld
 # group: graphql
 # --
-field ${1::field_name}, ${2:!}types.${3:String|Int|Float|Boolean|Object}${4:, ${5:"${6:description}"}}
+field ${1::name}, ${2:type}, null: ${3:true}, camelize: ${4:false}
