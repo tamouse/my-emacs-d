@@ -1,5 +1,3 @@
-#+STARTUP: overview
-
 * theme
 
 #+BEGIN_SRC emacs-lisp
@@ -264,16 +262,18 @@
    org-agenda-files (list (expand-file-name org-directory))
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
    org-capture-default-template "w"
-   org-default-notes-file (expand-file-name (concat org-directory "inbox.org"))
-   org-agenda-diary-file (expand-file-name (concat org-directory "diary.org"))
-   org-personal-care-file (expand-file-name (concat org-directory "personal_care.org"))
-   org-journal-file (expand-file-name (concat org-directory "journal.org"))
-   org-process-journal-file (expand-file-name (concat org-directory "process_journal.org"))
-   org-link-journal-file (expand-file-name (concat org-directory "link_journal.org"))
-   org-quotes-file (expand-file-name (concat org-directory "quotes.org"))
-   org-test-file (expand-file-name (concat org-directory "test.org"))
-   org-work-notes (expand-file-name (concat org-directory "WorkNotes.org"))
-   org-work-diary (expand-file-name (concat org-directory "WorkDiary.org"))
+   org-default-notes-file (expand-file-name (concat org-directory "/" "inbox.org"))
+   org-blog-file (expand-file-name (concat org-directory "/" "blog-" (format-time-string "%Y") ".org" ))
+   org-agenda-diary-file (expand-file-name (concat org-directory "/" "diary-" (format-time-string "%Y") ".org" ))
+   org-personal-care-file (expand-file-name (concat org-directory "/" "personal_care-" (format-time-string "%Y") ".org"))
+   org-journal-file (expand-file-name (concat org-directory "/" "journal-" (format-time-string "%Y") ".org"))
+   org-process-journal-file (expand-file-name (concat org-directory "/" "process_journal-" (format-time-string "%Y") ".org"))
+   org-link-journal-file (expand-file-name (concat org-directory "/" "link_journal-" (format-time-string "%Y") ".org"))
+   org-quotes-file (expand-file-name (concat org-directory "/" "quotes.org"))
+   org-test-file (expand-file-name (concat org-directory "/" "test.org"))
+   org-web-capture-file (expand-file-name (concat org-directory "/" "test-" (format-time-string "%Y") ".org"))
+   org-work-notes (expand-file-name (concat org-directory "/" "WorkNotes.org"))
+   org-work-diary (expand-file-name (concat org-directory "/" "WorkDiary.org"))
    org-html-doctype "html5"
    org-html-html5-fancy t
    )
@@ -321,7 +321,6 @@
       (require 'ox-reveal)
     #+END_SRC
 
-
 *** org protocol server
 #+BEGIN_SRC emacs-lisp
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -342,134 +341,143 @@
 *** org templates
 
 #+BEGIN_SRC emacs-lisp
-  (setq
-   org-capture-templates
-   (quote
-    (
-     ("W" "Templates for Work")
-     ("WD" "Work Diary Entry" entry
-      (file+olp+datetree  org-work-diary)
-      "* %U %? %(org-set-property \"CAPTURE_DATE\" \"%U\") "
-      :empty-lines 1 :time-prompt 1)
-     ("WT" "Work Todo" entry
-      (file+headline  org-work-notes "TODOS")
-      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :clock-in t
-      :clock-resume t
-      :empty-lines 1)
-     ("WN" "Work Inbox" entry
-      (file+headline  org-work-notes "INBOX")
-      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1)
-     ("p" "Templates for personal care")
-     ("pi" "Insulin taken" entry
+   (setq
+    org-capture-templates
+    (quote
+     (
+      ("b" "blog" entry
+       (file+olp+datetree  org-blog-file)
+       "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :clock-in t
+       :clock-resume t
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("W" "Templates for Work")
+      ("WD" "Work Diary Entry" entry
+       (file+olp+datetree  org-work-diary)
+       "* %U %? %(org-set-property \"CAPTURE_DATE\" \"%U\") "
+       :empty-lines 1 :time-prompt 1)
+      ("WT" "Work Todo" entry
+       (file+headline  org-work-notes "TODOS")
+       "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :clock-in t
+       :clock-resume t
+       :empty-lines 1)
+      ("WN" "Work Inbox" entry
+       (file+headline  org-work-notes "INBOX")
+       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1)
+      ("p" "Templates for personal care")
+      ("pi" "Insulin taken" entry
+	(file+olp+datetree  org-personal-care-file)
+	"* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+	:immediate-finish t
+	:empty-lines 1
+	:time-prompt 1
+	)
+      ("pg" "Glucose Reading" entry
        (file+olp+datetree  org-personal-care-file)
-       "* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       "* Glucose Reading %^{GLUCOSE_READING}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
        :immediate-finish t
        :empty-lines 1
        :time-prompt 1
        )
-     ("pg" "Glucose Reading" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* Glucose Reading %^{GLUCOSE_READING}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
-      :immediate-finish t
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("pc" "Carbs Planned" entry
-      (file+old+datetree  org-personal-care-file)
-      "* Carbs Planned %^{CARBS_PLANNED}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
-      :immediate-finish nil
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("pm" "Meds taken" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* Meds taken %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :immediate-finish nil
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("pn" "Personal Care Note" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* &? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("pb" "Breakfast" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* breakfast notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("pl" "Lunch" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* lunch notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("ps" "Supper" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* supper notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("j" "Templates for journal capture")
-     ("jj" "Journal Entry" entry
-      (file+olp+datetree  org-journal-file)
-      "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :clock-in t
-      :clock-resume t
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("jp" "Process Journal Entry" entry
-      (file+olp+datetree  org-process-journal-file)
-      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :clock-in t
-      :clock-resume t
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("jl" "Link Journal Entry" entry
-      (file+olp+datetree  org-link-journal-file)
-      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      )
-     ("n" "note" entry
-      (file+headline org-default-notes-file "NOTES")
-      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :prepend 1
-      )
-     ("t" "todo" entry
-      (file+headline org-default-notes-file "TODOS")
-      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :prepend 1
-      )
-     ("q" "Quotes" entry
-      (file  org-quotes-file)
-      "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
-      :empty-lines 1
-      :preprend 1
-      )
-     ("d" "diary" entry
-      (file+olp+datetree  org-agenda-diary-file)
-      "* %^{Headline}"
-      :empty-lines 1
-      :time-prompt 1
-      )
-     ("a" "appointment" entry
-      (file+headline  org-default-notes-file "APPOINTMENTS")
-      "* %^{Appointment:} %^T"
-      )
-     ("w" "Default Org-protocol Capture Template" entry
-      (file+olp+datetree  org-link-journal-file)
-      "* %:description %(org-set-property \"CAPTURE_DATE\" \"%U\")%(org-set-property \"LINK\" \"%:link\")%(org-set-property \"TITLE\" \"%:description\")\n%:initial\n"
-      :empty-lines 1
-      )
-     )))
+      ("pc" "Carbs Planned" entry
+       (file+old+datetree  org-personal-care-file)
+       "* Carbs Planned %^{CARBS_PLANNED}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
+       :immediate-finish nil
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("pm" "Meds taken" entry
+       (file+olp+datetree  org-personal-care-file)
+       "* Meds taken %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :immediate-finish nil
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("pn" "Personal Care Note" entry
+       (file+olp+datetree  org-personal-care-file)
+       "* &? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("pb" "Breakfast" entry
+       (file+olp+datetree  org-personal-care-file)
+       "* breakfast notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("pl" "Lunch" entry
+       (file+olp+datetree  org-personal-care-file)
+       "* lunch notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("ps" "Supper" entry
+       (file+olp+datetree  org-personal-care-file)
+       "* supper notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("j" "Templates for journal capture")
+      ("jj" "Journal Entry" entry
+       (file+olp+datetree  org-journal-file)
+       "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :clock-in t
+       :clock-resume t
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("jp" "Process Journal Entry" entry
+       (file+olp+datetree  org-process-journal-file)
+       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :clock-in t
+       :clock-resume t
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("jl" "Link Journal Entry" entry
+       (file+olp+datetree  org-link-journal-file)
+       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       )
+      ("n" "note" entry
+       (file+headline org-default-notes-file "NOTES")
+       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :prepend 1
+       )
+      ("t" "todo" entry
+       (file+headline org-default-notes-file "TODOS")
+       "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :prepend 1
+       )
+      ("q" "Quotes" entry
+       (file  org-quotes-file)
+       "* %^{Headline:} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+       :empty-lines 1
+       :preprend 1
+       )
+      ("d" "diary" entry
+       (file+olp+datetree  org-agenda-diary-file)
+       "* %^{Headline}"
+       :empty-lines 1
+       :time-prompt 1
+       )
+      ("a" "appointment" entry
+       (file+headline  org-default-notes-file "APPOINTMENTS")
+       "* %^{Appointment:} %^T"
+       )
+      ("w" "Default Org-protocol Capture Template" entry
+       (file+olp+datetree  org-web-capture-file)
+       "* %:description %(org-set-property \"CAPTURE_DATE\" \"%U\")%(org-set-property \"LINK\" \"%:link\")%(org-set-property \"TITLE\" \"%:description\")\n%:initial\n"
+       :empty-lines 1
+       :prepend 1
+       )
+      )))
 #+END_SRC
 *** text files are org files!
 #+BEGIN_SRC emacs-lisp
@@ -1052,7 +1060,13 @@
 
  #+END_SRC
 
+* other packages
 
+** htmlize
+   Used in publishing to HTML
+   #+BEGIN_SRC emacs-lisp
+     (use-package htmlize)
+   #+END_SRC
 * snippets
 
 #+BEGIN_SRC emacs-lisp
