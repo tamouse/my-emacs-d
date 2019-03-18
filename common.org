@@ -259,7 +259,11 @@
      (flycheck-mode -1))
    )
   (setq
-   org-agenda-files (list (expand-file-name org-directory))
+   org-agenda-files (list
+		     (expand-file-name org-directory)
+		     (concat (file-name-as-directory (expand-file-name org-directory)) "Tech")
+		     (concat (file-name-as-directory (expand-file-name org-directory)) "reachlocal")
+		     )
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
    org-capture-default-template "w"
    org-default-notes-file (expand-file-name (concat org-directory "/" "inbox.org"))

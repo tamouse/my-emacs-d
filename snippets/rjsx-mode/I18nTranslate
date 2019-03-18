@@ -1,0 +1,5 @@
+# -*- mode: snippet, require-final-newline: nil -*-
+# name: I18n Translate
+# key: i18nt
+# --
+I18n.t("${1:key}", {scope: i18nScope})
