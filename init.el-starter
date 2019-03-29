@@ -35,10 +35,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(git-commit-setup-hook
-     (quote
-       (git-commit-save-message git-commit-setup-changelog-support git-commit-propertize-diff with-editor-usage-message)))
-  )
+ '(git-commit-setup-hook
+   '(git-commit-save-message git-commit-setup-changelog-support git-commit-propertize-diff with-editor-usage-message))
+ '(package-selected-packages
+   '(yasnippet multiple-cursors xquery-mode lorem-ipsum editorconfig counsel which-key try circe slim-mode yaml-mode feature-mode markdown-mode stylus-mode scss-mode sass-mode emmet-mode coffee-mode nginx-mode alchemist flycheck helm-projectile php-mode prettier-js rjsx-mode web-mode ruby-tools robe magit company-tern emojify color-theme-modern use-package org)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
