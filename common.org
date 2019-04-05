@@ -259,10 +259,14 @@
      (flycheck-mode -1))
    )
   (setq
+   org-tech-directory (concat (file-name-as-directory (expand-file-name org-directory)) "Tech")
+   org-finances-directory (concat (file-name-as-directory (expand-file-name org-directory)) "Finances")
+   org-reachlocal-directory (concat (file-name-as-directory (expand-file-name org-directory)) "reachlocal")
    org-agenda-files (list
 		     (expand-file-name org-directory)
-		     (concat (file-name-as-directory (expand-file-name org-directory)) "Tech")
-		     (concat (file-name-as-directory (expand-file-name org-directory)) "reachlocal")
+		     org-tech-directory
+		     org-finances-directory
+		     org-reachlocal-directory
 		     )
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
    org-capture-default-template "w"
@@ -278,6 +282,8 @@
    org-web-capture-file (expand-file-name (concat org-directory "/" "test-" (format-time-string "%Y") ".org"))
    org-work-notes (expand-file-name (concat org-directory "/" "WorkNotes.org"))
    org-work-diary (expand-file-name (concat org-directory "/" "WorkDiary.org"))
+   org-finances-inbox (concat (file-name-as-directory (expand-file-name org-finances-directory)) "inbox.org")
+   org-finances-payments (concat (file-name-as-directory (expand-file-name org-finances-directory)) "payments-" (format-time-string "%Y") ".org")
    org-html-doctype "html5"
    org-html-html5-fancy t
    )
@@ -285,18 +291,6 @@
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (define-key org-mode-map (kbd "C-c !") 'org-time-stamp-inactive)
-
-  ;;; Publishing Config
-  (setq
-   org-publish-project-alist
-   '(("knowledge"
-      :base-directory "/Volumes/Projects/Sites/knowledge"
-      :publishing-directory "/Volumes/Projects/Sites/knowledge.pub"
-      :publishing-function org-html-publish-to-html
-      :recursive t
-      :exclude "README\.org"
-      ))
-   )
 #+END_SRC
 *** ditaa
 
@@ -454,6 +448,21 @@
       :empty-lines 1
       :prepend 1
       )
+	("F" "Finances")
+     ("Fn" "Finances Note" entry (file+headline org-finances-inbox "Notes")
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      :prepend 1
+      )
+     ("Ft" "Finances To Do" entry (file+headline org-finances-inbox "ToDos")
+      "* TODO %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      :empty-lines 1
+      :prepend 1
+      )
+     ("Fp" "Finances Payment" entry
+      (file+olp+datetree  org-finances-payments)
+      "* For %^{CheckNo}p%^{Payee}p%^{Amount}p%^{Date}p%^{Memo}"
+      :empty-lines 1 :time-prompt 1)
      )))
 #+END_SRC
 *** text files are org files!

@@ -1,0 +1,5 @@
+# -*- mode: snippet, require-final-newline: nil -*-
+# name: lorem
+# key: lorem
+# --
+`(lorem-ipsum-insert-sentences)`$0
