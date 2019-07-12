@@ -245,9 +245,10 @@
 
     #+BEGIN_SRC emacs-lisp
       ;; (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
-        ;; (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+	;; (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
       (require 'org)
       (require 'ox-md)
+      (require 'ox-beamer)
       (require 'ox-reveal)
     #+END_SRC
 *** settings

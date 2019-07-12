@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: org post fm
+# key: fm
+# --
+#+COMMENT -*- time-stamp-line-limit: 20; time-stamp-count: 2 -*-
+#+TITLE: ${1:title}
+#+DATE: `(org-time-stamp-inactive)`
+#+KEYWORDS: ${2:keywords}
+#+DESCRIPTION: ${3:description}
+
+* $1
+   - last update: Time-stamp: <2018-09-16 14:32:23 tamara>
+
+** Intro$0
