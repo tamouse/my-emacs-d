@@ -41,12 +41,12 @@
                                        indentation space-after-tab)
         xterm-mouse-mode t
         save-place-file "~/.emacs.d/places"
-        fill-column 80
         ido-auto-merge-delay-time 3
         netrc-file "~/.netrc"
         css-indent-offset 2
         )
 
+     (setq-default fill-column 90)
      (defalias 'yes-or-no-p 'y-or-n-p)
      (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
