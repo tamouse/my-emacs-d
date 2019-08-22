@@ -3,6 +3,4 @@
 # key: desc
 # group: specs
 # --
-describe('${1}', () => {
-$0
-})
+describe('${1:Test Name}', () => {$0})

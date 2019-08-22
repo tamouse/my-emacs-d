@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: mocks for MockedProvider
+# key: mocks
+# group: testing
+# --
+const mocks = [{
+request: {
+query: ${1:QUERY},
+variables: { ${2:variables}  }
+},
+result: { data: {${3:query return}} }
+}]

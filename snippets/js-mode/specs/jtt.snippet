@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: jest test template
+# key: jtt
+# group: specs
+# --
+import React from "react";
+import { render, cleanup, fireEvent, wait, waitForElement } from "@testing-library/react";
+import {${1:Comp}} from "${2:./index}";
+
+describe("$1", () => {
+  it("renders the $1 component", () => {
+
+    /** SETUP **/$0
+    const props = {
+    }
+    const {getByText, getByTestId, queryByText, queryByTestId, container, asFragment, rerender} = render(<$1 {...props} />);
+
+    /** ACTION **/
+
+
+    /** VERIFICATION **/
+    expect(container.firstChild).toMatchSnapshot();
+  })
+})

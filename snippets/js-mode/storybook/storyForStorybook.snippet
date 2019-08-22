@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: story for Storybook
+# key: story
+# group: storybook
+# --
+import React from "react"
+import { storiesOf } from "@storybook/react"
+import { action } from "@storybook/addon-actions"
+import { ${1:Component} } from "${2:index}"
+
+storiesOf("$1", module).addDecorator(storyFn => (<div>{storyFn()}</div>))
+.add('${3:example}', () => {const props = {}; return (<$1 {...props} />)})

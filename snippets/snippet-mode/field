@@ -1,5 +1,5 @@
-# name : ${ ...  } field
-# contributor : joaotavora
+# -*- mode: snippet; require-final-newline: nil -*-
+# contributor : ${6:joaotavora}
 # key : $f
 # --
 \${${1:${2:n}:}$3${4:\$(${5:lisp-fn})}\}$0
