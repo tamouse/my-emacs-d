@@ -262,7 +262,7 @@
   (setq
    org-tech-directory (concat (file-name-as-directory (expand-file-name org-directory)) "Tech")
    org-finances-directory (concat (file-name-as-directory (expand-file-name org-directory)) "Finances")
-   org-reachlocal-directory (concat (file-name-as-directory (expand-file-name org-directory)) "reachlocal")
+   org-reachlocal-directory (concat (file-name-as-directory (expand-file-name org-directory)) "Gannett")
    org-agenda-files (list
 		     (expand-file-name org-directory)
 		     org-tech-directory
@@ -825,6 +825,7 @@
 		 '("\\.\\(md\\|mkd\\|markdown\\)\\.\\(erb\\|tt\\)" . markdown-mode))
     )
 
+  (use-package edit-indirect :ensure t)
 #+END_SRC
 ** feature (Gherkin)
 #+BEGIN_SRC emacs-lisp
