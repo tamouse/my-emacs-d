@@ -664,8 +664,8 @@
     ("\\.jsx?\\.erb\\'" . rjsx-mode)
     ("\\.jsx?\\.ejs\\'" . rjsx-mode)
     ("\\.json\\'" . rjsx-mode)
+    ("\\.babelrc\\'" . rjsx-mode)
     )
-
 #+END_SRC
 
 *** prettier
@@ -676,12 +676,8 @@
     ;; 	'("--no-semi"
     ;; 	  "--no-trailing-comma all"
     ;; 	  ))
-    (add-hook 'web-mode-hook
-	      #'(lambda ()
-		  (enable-minor-mode
-		   '("\\.jsx?\\'" . prettier-js-mode)
-		   ))
-	      )
+    (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
+    ;; (add-hook 'rjsx-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
     ;; (add-hook 'jsx-mode-hook 'prettier-js-mode)
     ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'rjsx-mode-hook 'prettier-js-mode)
