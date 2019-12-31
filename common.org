@@ -28,38 +28,38 @@
 
 ** General settings for everyday use.
    #+BEGIN_SRC emacs-lisp
-     (setq visible-bell nil
-        ring-bell-function 'ignore
-        indent-tabs-mode nil
-        echo-keystrokes 0.1
-        font-lock-maximum-decoration t
-        transient-mark-mode t
-        delete-by-moving-to-trash t
-        truncate-partial-width-windows nil
-        uniquify-buffer-name-style 'forward
-        whitespace-style '(trailing lines space-before-tab
-                                       indentation space-after-tab)
-        xterm-mouse-mode t
-        save-place-file "~/.emacs.d/places"
-        ido-auto-merge-delay-time 3
-        netrc-file "~/.netrc"
-        css-indent-offset 2
-        )
+     (setq
+      visible-bell nil
+      ring-bell-function 'ignore
+      indent-tabs-mode nil
+      echo-keystrokes 0.1
+      font-lock-maximum-decoration t
+      transient-mark-mode t
+      delete-by-moving-to-trash t
+      truncate-partial-width-windows nil
+      uniquify-buffer-name-style 'forward
+      xterm-mouse-mode t
+      )
 
-     (setq-default fill-column 90)
+     (setq-default
+      fill-column 90
+      save-place-file "~/.emacs.d/places"
+      ido-auto-merge-delay-time 3
+      netrc-file "~/.netrc"
+      css-indent-offset 2
+      )
+
      (defalias 'yes-or-no-p 'y-or-n-p)
-     (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
      ;;; Don't clutter up directories with backup files
      (setq
       backup-directory-alist
       `(("." .
-         ,(expand-file-name
-        (concat "~/.emacs.d/backups"))
-         )
-        )
+	 ,(expand-file-name
+	   (concat "~/.emacs.d/backups"))
+	 )
+	)
       )
-
 
      (put 'narrow-to-region 'disabled nil)
    #+END_SRC
@@ -222,7 +222,29 @@
 	   (funcall (cdr my-pair)))))
    #+END_SRC
 
+** create file name in real time for org capture templates
+
+#+BEGIN_SRC emacs-lisp
+  (defun tpt/new-month-file-name (fn-root)
+    "Return a filename base with the root specified followed by the year and month, as '<fn-root>-YYYY-MM'. directory and extension are left up to the consumer, this just provides the basename."
+    (interactive)
+    (tpt/format-realtime-filename fn-root "%Y-%m")
+    )
+
+  (defun tpt/new-year-file-name (fn-root)
+    "Return a filename base with the root specified followed by the current year, as '<fn-root>-YYYY'. directory and extension are left up to the consumer, this just provides the basename."
+    (interactive)
+    (tpt/format-realtime-filename fn-root "%Y")
+    )
+
+  (defun tpt/format-realtime-filename (fn-root date-format)
+    (concat fn-root "-" (format-time-string date-format))
+    )
+
+#+END_SRC
+
 ** Convert markdown to org-mode
+
 
 #+BEGIN_SRC emacs-lisp
   (defun markdown-convert-buffer-to-org ()
@@ -272,19 +294,11 @@
    org-refile-targets '((org-agenda-files . (:maxlevel . 2)))
    org-capture-default-template "w"
    org-default-notes-file (expand-file-name (concat org-directory "/" "inbox.org"))
-   org-blog-file (expand-file-name (concat org-directory "/" "blog-" (format-time-string "%Y") ".org" ))
-   org-agenda-diary-file (expand-file-name (concat org-directory "/" "diary-" (format-time-string "%Y") ".org" ))
-   org-personal-care-file (expand-file-name (concat org-directory "/" "personal_care-" (format-time-string "%Y") ".org"))
-   org-journal-file (expand-file-name (concat org-directory "/" "journal-" (format-time-string "%Y") ".org"))
-   org-process-journal-file (expand-file-name (concat org-directory "/" "process_journal-" (format-time-string "%Y") ".org"))
-   org-link-journal-file (expand-file-name (concat org-directory "/" "link_journal-" (format-time-string "%Y") ".org"))
    org-quotes-file (expand-file-name (concat org-directory "/" "quotes.org"))
    org-test-file (expand-file-name (concat org-directory "/" "test.org"))
-   org-web-capture-file (expand-file-name (concat org-directory "/" "test-" (format-time-string "%Y") ".org"))
    org-work-notes (expand-file-name (concat org-directory "/" "WorkNotes.org"))
    org-work-diary (expand-file-name (concat org-directory "/" "WorkDiary.org"))
    org-finances-inbox (concat (file-name-as-directory (expand-file-name org-finances-directory)) "inbox.org")
-   org-finances-payments (concat (file-name-as-directory (expand-file-name org-finances-directory)) "payments-" (format-time-string "%Y") ".org")
    org-html-doctype "html5"
    org-html-html5-fancy t
    )
@@ -292,6 +306,88 @@
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (define-key org-mode-map (kbd "C-c !") 'org-time-stamp-inactive)
+
+  (defun tpt/org-build-file-path (basename)
+    "Given the basename, expand the full path for the filename."
+    (interactive)
+    (expand-file-name
+     (concat
+      org-directory
+      "/"
+      basename
+      ".org"
+      ))
+    )
+
+  ;;; org-blog-file (expand-file-name (concat org-directory "/" "blog-" (format-time-string "%Y") ".org" ))
+  (defun tpt/org-blog-file ()
+    "Provides a realtime file for the blog"
+    (interactive)
+    (tpt/org-build-file-path
+     (tpt/new-year-file-name "blog")
+     )
+    )
+
+  ;;; org-agenda-daylog-file (expand-file-name (concat org-directory "/" "daylog-" (format-time-string "%Y-%m") ".org"))
+  (defun tpt/org-daylog-file ()
+    "Provides a realtime file for the daylog (a new one each month)"
+    (interactive)
+    (tpt/org-build-file-path
+     (tpt/new-month-file-name "daylog")
+     )
+    )
+  ;;; org-agenda-diary-file (expand-file-name (concat org-directory "/" "diary-" (format-time-string "%Y") ".org" ))
+  (defun tpt/org-diary-file ()
+    "Provides a realtime file for the diary"
+    (interactive)
+    (tpt/org-build-file-path (tpt/new-year-file-name "diary"))
+    )
+  ;;; org-personal-care-file (expand-file-name (concat org-directory "/" "personal_care-" (format-time-string "%Y") ".org"))
+  (defun tpt/org-personal-care-file ()
+    "Provides a realtime file for the personal care file"
+    (interactive)
+    (tpt/org-build-file-path (tpt/new-year-file-name "personal_care"))
+    )
+
+  ;;; org-journal-file (expand-file-name (concat org-directory "/" "journal-" (format-time-string "%Y") ".org"))
+  (defun tpt/org-journal-file ()
+    "Provides a realtime file for the journal"
+    (interactive)
+    (tpt/org-build-file-path (tpt/new-year-file-name "journal"))
+    )
+
+  ;;; org-process-journal-file (expand-file-name (concat org-directory "/" "process_journal-" (format-time-string "%Y") ".org"))
+  (defun tpt/org-process-journal-file ()
+    "Provides a realtime file for the process journal"
+    (interactive)
+    (tpt/org-build-file-path (tpt/new-year-file-name "process_journal"))
+    )
+
+  ;;; org-link-journal-file (expand-file-name (concat org-directory "/" "link_journal-" (format-time-string "%Y") ".org"))
+  (defun tpt/org-link-journal-file ()
+    "Provides a realtime file for the link journal"
+    (interactive)
+    (tpt/org-build-file-path (tpt/new-year-file-name "link_journal"))
+    )
+
+  ;;;  org-web-capture-file (expand-file-name (concat org-directory "/" "test-" (format-time-string "%Y") ".org"))
+  (defun tpt/org-web-capture-file ()
+    "Provides a realtime file for the web capture template"
+    (interactive)
+    (tpt/org-build-file-path (tpt/new-year-file-name "test"))
+    )
+
+  ;;; org-finances-payments (concat (file-name-as-directory (expand-file-name org-finances-directory)) "payments-" (format-time-string "%Y") ".org")
+  (defun tpt/org-finances-payments-file ()
+    "Provides a realtime file for the finances payments file"
+    (interactive)
+    (concat
+     (file-name-as-directory
+      (expand-file-name org-finances-directory)
+      )
+    (tpt/new-year-file-name "payments")	; "payments-" (format-time-string "%Y")
+     ".org")
+    )
 #+END_SRC
 *** ditaa
 
@@ -337,6 +433,7 @@
 
 
 #+END_SRC
+
 *** org templates
 
 #+BEGIN_SRC emacs-lisp
@@ -345,7 +442,7 @@
    (quote
     (
      ("b" "blog" entry
-      (file+olp+datetree  org-blog-file)
+      (file+olp+datetree tpt/org-blog-file)
       "* %^{Headline} %^G %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :clock-in t
       :clock-resume t
@@ -354,64 +451,64 @@
       )
      ("W" "Templates for Work")
      ("WD" "Work Diary Entry" entry
-      (file+olp+datetree  org-work-diary)
+     (file+olp+datetree org-work-diary)
       "* %U %? %(org-set-property \"CAPTURE_DATE\" \"%U\") "
       :empty-lines 1 :time-prompt 1)
      ("p" "Templates for personal care")
      ("pi" "Insulin taken" entry
-       (file+olp+datetree  org-personal-care-file)
+       (file+olp+datetree tpt/org-personal-care-file)
        "* Insulin Taken %^{INSULIN_AMOUNT}p%^{INSULIN_TYPE}p %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
        :immediate-finish t
        :empty-lines 1
        :time-prompt 1
        )
      ("pg" "Glucose Reading" entry
-      (file+olp+datetree  org-personal-care-file)
+      (file+olp+datetree tpt/org-personal-care-file)
       "* Glucose Reading %^{GLUCOSE_READING}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
       :immediate-finish t
       :empty-lines 1
       :time-prompt 1
       )
      ("pc" "Carbs Planned" entry
-      (file+old+datetree  org-personal-care-file)
+      (file+old+datetree  tpt/org-personal-care-file)
       "* Carbs Planned %^{CARBS_PLANNED}p %(org-set-property \"CAPTURE_DATE\" \"%U\")"
       :immediate-finish nil
       :empty-lines 1
       :time-prompt 1
       )
      ("pm" "Meds taken" entry
-      (file+olp+datetree  org-personal-care-file)
+      (file+olp+datetree tpt/org-personal-care-file)
       "* Meds taken %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :immediate-finish nil
       :empty-lines 1
       :time-prompt 1
       )
      ("pn" "Personal Care Note" entry
-      (file+olp+datetree  org-personal-care-file)
-      "* &? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
+      (file+olp+datetree tpt/org-personal-care-file)
+      "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       :time-prompt 1
       )
      ("pb" "Breakfast" entry
-      (file+olp+datetree  org-personal-care-file)
+      (file+olp+datetree tpt/org-personal-care-file)
       "* breakfast notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       :time-prompt 1
       )
      ("pl" "Lunch" entry
-      (file+olp+datetree  org-personal-care-file)
+      (file+olp+datetree tpt/org-personal-care-file)
       "* lunch notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       :time-prompt 1
       )
      ("ps" "Supper" entry
-      (file+olp+datetree  org-personal-care-file)
+      (file+olp+datetree  tpt/org-personal-care-file)
       "* supper notes %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       :time-prompt 1
       )
-     ("l" "Link Journal Entry" entry
-      (file+olp+datetree  org-link-journal-file)
+     ("L" "Link Journal Entry" entry
+      (file+olp+datetree tpt/org-link-journal-file)
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
       )
@@ -434,22 +531,30 @@
       :preprend 1
       )
      ("d" "diary" entry
-      (file+olp+datetree  org-agenda-diary-file)
+      (file+olp+datetree tpt/org-diary-file)
       "* %^{Headline}\n\n%?"
       :empty-lines 1
       :time-prompt 1
       )
+     ("l" "day log" entry
+      (file+olp+datetree tpt/org-daylog-file)
+      "* %^{item}\n\n%?"
+      :empty-lines 1
+      :time-prompt 1
+      :clock-in 1
+      :clock-resume 1
+      )
      ("a" "appointment" entry
-      (file+headline  org-default-notes-file "APPOINTMENTS")
+      (file+headline org-default-notes-file "APPOINTMENTS")
       "* %^{Appointment:} %^T"
       )
      ("w" "Default Org-protocol Capture Template" entry
-      (file+olp+datetree  org-web-capture-file)
+      (file+olp+datetree tpt/org-web-capture-file)
       "* %:description %(org-set-property \"CAPTURE_DATE\" \"%U\")%(org-set-property \"LINK\" \"%:link\")%(org-set-property \"TITLE\" \"%:description\")\n%:initial\n"
       :empty-lines 1
       :prepend 1
       )
-	("F" "Finances")
+     ("F" "Finances")
      ("Fn" "Finances Note" entry (file+headline org-finances-inbox "Notes")
       "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n"
       :empty-lines 1
@@ -461,7 +566,7 @@
       :prepend 1
       )
      ("Fp" "Finances Payment" entry
-      (file+olp+datetree  org-finances-payments)
+      (file+olp+datetree tpt/org-finances-payments-file)
       "* For %^{CheckNo}p%^{Payee}p%^{Amount}p%^{Date}p%^{Memo}"
       :empty-lines 1 :time-prompt 1)
      )))
@@ -823,6 +928,16 @@
 
   (use-package edit-indirect :ensure t)
 #+END_SRC
+** textile
+#+BEGIN_SRC emacs-lisp
+  (use-package textile-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist
+		 '("\\.textile" . textile-mode))
+    )
+#+END_SRC
+
 ** feature (Gherkin)
 #+BEGIN_SRC emacs-lisp
   (setq feature-default-language "en")
