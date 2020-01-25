@@ -301,6 +301,8 @@
    org-finances-inbox (concat (file-name-as-directory (expand-file-name org-finances-directory)) "inbox.org")
    org-html-doctype "html5"
    org-html-html5-fancy t
+   org-todo-keywords
+   `((sequence "PENDING" "INPROGRESS" "ONHOLD" "|" "DONE" "ABANDONED"))
    )
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c a") 'org-agenda)
