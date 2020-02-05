@@ -837,7 +837,7 @@
 ** flycheck
    http://www.flycheck.org/en/latest/user/installation.html
 
-   Disabling ruby-reek and emacs-lisp-checkdoc as overkill.
+   Disabling emacs-lisp-checkdoc as overkill.
    - [[https://stackoverflow.com/questions/15552349/hw-to-disable-flycheck-warning-while-editing-emacs-lisp-scripts#15556197][disabling emacs-lisp-checkdoc]]
 
    #+BEGIN_SRC emacs-lisp
@@ -845,7 +845,7 @@
        :ensure t
        :init (global-flycheck-mode)
        :config
-       (setq-default flycheck-disabled-checkers '(ruby-reek emacs-lisp-checkdoc))
+       (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
        )
    #+END_SRC
 ** elixir
