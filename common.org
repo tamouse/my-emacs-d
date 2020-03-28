@@ -255,6 +255,7 @@
 				       (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
 
 #+END_SRC
+
 * modes
 ** org
 *** load 9.1.9
@@ -298,6 +299,7 @@
    org-test-file (expand-file-name (concat org-directory "/" "test.org"))
    org-work-notes (expand-file-name (concat org-directory "/" "WorkNotes.org"))
    org-work-diary (expand-file-name (concat org-directory "/" "WorkDiary.org"))
+   work-inbox-file (concat (file-name-as-directory (expand-file-name org-reachlocal-directory)) "inbox.org")
    org-finances-inbox (concat (file-name-as-directory (expand-file-name org-finances-directory)) "inbox.org")
    org-html-doctype "html5"
    org-html-html5-fancy t
@@ -452,10 +454,9 @@
       :time-prompt 1
       )
      ("W" "Templates for Work")
-     ("WD" "Work Diary Entry" entry
-     (file+olp+datetree org-work-diary)
-      "* %U %? %(org-set-property \"CAPTURE_DATE\" \"%U\") "
-      :empty-lines 1 :time-prompt 1)
+     ("Wd" "Work Diary Entry" entry (file+olp+datetree org-work-diary) "* %U %? %(org-set-property \"CAPTURE_DATE\" \"%U\") " :empty-lines 1 :time-prompt 1)
+     ("Wn" "Work notes" entry (file+headling work-inbox-file "REACHLOCAL GABBETT WORK NOTES")     "* %? %(org-set-property \"CAPTURE_DATE\" \"%U\")\n" :empty-lines 1 :prepend 1)
+     ("Wt" "todo" entry (file+headline work-inbox-file "REACHLOCAL GANNETT WORK TODOS") "* PENDING %^{Task} %(org-set-property \"CAPTURE_DATE\" \"%U\")\n\n%?" :empty-lines 1 :prepend 1)
      ("p" "Templates for personal care")
      ("pi" "Insulin taken" entry
        (file+olp+datetree tpt/org-personal-care-file)
