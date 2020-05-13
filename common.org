@@ -1,3 +1,4 @@
+
 * theme
 
 #+BEGIN_SRC emacs-lisp
@@ -602,7 +603,6 @@
    Complete Anything http://company-mode.github.io/
 
 #+BEGIN_SRC emacs-lisp
-  (use-package company-tern :ensure t)
   (use-package company
     :ensure t
     :config
