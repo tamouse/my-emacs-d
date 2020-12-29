@@ -743,23 +743,13 @@
 ** html
 
 ** javascript
-*** js2-mode
-#+BEGIN_SRC emacs-lisp
-  ;;;(use-package js2-mode
-  ;;;  :ensure t
-  ;;;  :config
-  ;;;  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  ;;;  (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
-  ;;;  (add-to-list 'auto-mode-alist '("\\.jsonb\\'" . js2-mode))
-  ;;;  )
-#+END_SRC
 
-*** jsx-mode
+*** js2-mode settings
+
 #+BEGIN_SRC emacs-lisp
-  ;;;(use-package jsx-mode :ensure t
-  ;;;  :config
-  ;;;  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-  ;;;  )
+  (set-variable 'js2-missing-semi-one-line-override t)
+  (set-variable 'js2-strict-missing-semi-warning nil)
+
 #+END_SRC
 
 *** rjsx-mode
@@ -780,16 +770,16 @@
 #+BEGIN_SRC emacs-lisp
   (use-package prettier-js :ensure t
     :config
-    ;; (setq prettier-js-args
-    ;; 	'("--no-semi"
-    ;; 	  "--no-trailing-comma all"
-    ;; 	  ))
     (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
-    ;; (add-hook 'rjsx-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
-    ;; (add-hook 'jsx-mode-hook 'prettier-js-mode)
-    ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
     (add-hook 'rjsx-mode-hook 'prettier-js-mode)
     )
+#+END_SRC
+
+** elm
+
+#+BEGIN_SRC emacs-lisp
+  (use-package reformatter :ensure t)
+  (use-package elm-mode  :ensure t :config (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 #+END_SRC
 
 ** php
@@ -846,7 +836,7 @@
        :ensure t
        :init (global-flycheck-mode)
        :config
-       (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+       (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint emacs-lisp-checkdoc))
        )
    #+END_SRC
 ** elixir
