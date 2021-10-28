@@ -1,6 +1,11 @@
 ;;; -*- emacs-lisp -*-
 
-(setq default-frame-alist '((width . 200) (height . 70) (menu-bar-lines . 1)))
+(setq default-frame-alist
+      '((width . 200)
+	(height . 70)
+	(menu-bar-lines . 1)
+	(font . "-*-Monaco-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") ; Use set-default-font and C-u C-x = [describe-char] and copied the font name in here.
+	))
 (setq inhibit-startup-message t)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/extras/"))
 
