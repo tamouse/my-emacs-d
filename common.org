@@ -6,8 +6,8 @@
     :ensure t
     :config
     (add-to-list 'custom-theme-load-path
-                 (file-name-as-directory
-                  (expand-file-name "~/.emacs.d/themes")))
+		 (file-name-as-directory
+		  (expand-file-name "~/.emacs.d/themes")))
     (load-theme 'hober t t)
     (enable-theme 'hober)
     )
@@ -680,6 +680,7 @@
    ruby-deep-indent-paren-style nil
    )
   (global-set-key (kbd "C-x \\")	'align-regexp)
+  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+END_SRC
 
 *** Align new-style hashes ~name: value~ nicely
@@ -748,6 +749,7 @@
 #+BEGIN_SRC emacs-lisp
   (set-variable 'js2-missing-semi-one-line-override t)
   (set-variable 'js2-strict-missing-semi-warning nil)
+  (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 #+END_SRC
 
@@ -763,6 +765,8 @@
     ("\\.json\\'" . rjsx-mode)
     ("\\.babelrc\\'" . rjsx-mode)
     )
+  (add-hook 'rjsx-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
 #+END_SRC
 
 *** prettier
