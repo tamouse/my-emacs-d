@@ -1,5 +1,6 @@
 ;;; -*- emacs-lisp -*-
 
+(set-language-environment "UTF-8")
 (setq default-frame-alist
       '((width . 200)
 	(height . 70)
