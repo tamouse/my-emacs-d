@@ -29,15 +29,16 @@
 ** General settings for everyday use.
    #+BEGIN_SRC emacs-lisp
      (setq
-      visible-bell nil
-      ring-bell-function 'ignore
-      indent-tabs-mode nil
+      delete-by-moving-to-trash t
+      display-fill-column-indicator t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
+      indent-tabs-mode nil
+      ring-bell-function 'ignore
       transient-mark-mode t
-      delete-by-moving-to-trash t
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'forward
+      visible-bell nil
       xterm-mouse-mode t
       )
 
@@ -670,7 +671,10 @@
     :ensure t)
 #+END_SRC
 
-*** rest
+*** some variables
+
+Setting a few variables to defaults I prefer.
+
 #+BEGIN_SRC emacs-lisp
   (setq
    ruby-use-smie t
@@ -696,7 +700,6 @@
     (kbd "C-x :") 'tpt/align-ruby-hash)
 
 #+END_SRC
-
 
 *** Hide-show support that's actually useful
 #+BEGIN_SRC emacs-lisp
