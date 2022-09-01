@@ -20,6 +20,10 @@
 (setq common-file (expand-file-name "~/.emacs.d/common.org"))
 (setq local-settings-file (expand-file-name "~/.emacs.d/local-settings.org"))
 (setq local-file (expand-file-name "~/.emacs.d/local.org"))
+
+;;; Show full path in frame title
+;;; See https://emacs.stackexchange.com/a/46016/9358
+;;; TODO: replace the $HOME part of the path with a tilde
 (setq frame-title-format
       (list '(buffer-file-name "%f" "%b")
             '(:eval (format " - GNU Emacs %s" emacs-version))))
