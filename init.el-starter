@@ -1,6 +1,12 @@
 ;;; -*- emacs-lisp -*-
 
-(setq default-frame-alist '((width . 200) (height . 70) (menu-bar-lines . 1)))
+(set-language-environment "UTF-8")
+(setq default-frame-alist
+      '((width . 200)
+	(height . 70)
+	(menu-bar-lines . 1)
+	(font . "-*-Monaco-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") ; Use set-default-font and C-u C-x = [describe-char] and copied the font name in here.
+	))
 (setq inhibit-startup-message t)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/extras/"))
 
@@ -14,6 +20,13 @@
 (setq common-file (expand-file-name "~/.emacs.d/common.org"))
 (setq local-settings-file (expand-file-name "~/.emacs.d/local-settings.org"))
 (setq local-file (expand-file-name "~/.emacs.d/local.org"))
+
+;;; Show full path in frame title
+;;; See https://emacs.stackexchange.com/a/46016/9358
+;;; TODO: replace the $HOME part of the path with a tilde
+(setq frame-title-format
+      (list '(buffer-file-name "%f" "%b")
+            '(:eval (format " - GNU Emacs %s" emacs-version))))
 
 ;;; local settings that need to be set *before* the common stuff
 (if (file-exists-p local-settings-file)

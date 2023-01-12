@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: label
+# key: label
+# group: forms
+# --
+<label for="${1:name}">${2:Text}</label>
