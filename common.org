@@ -801,16 +801,27 @@
         (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
         )
     #+END_SRC
+** helm
+
+Insatalling this before projectile helm, hoping it will work there
+
+#+BEGIN_SRC emacs-lisp
+(use-package 'helm
+:ensure t
+:config
+  (require 'helm-config)
+  (define-key helm-map (kbd "C-z") 'helm-select-action)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  )
+
+#+END_SRC emacs-lisp
+
 ** helm-projectile
 #+BEGIN_SRC emacs-lisp
   (use-package helm-projectile
     :ensure t
     :config
-    (require 'helm)
-    (require 'helm-config)
-    (define-key helm-map (kbd "C-z") 'helm-select-action)
-    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
     (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (projectile-mode +1)
@@ -851,11 +862,11 @@
    #+END_SRC
 ** elixir
 #+BEGIN_SRC emacs-lisp
-  (use-package alchemist
-    :ensure t
-    :config
-    (setq alchemist-key-command-prefix (kbd "C-c ,")) ;; default is C-c a, which is org-agenda
-    (add-to-list 'alchemist-mode-hook (lambda () (company-mode))))
+;;;  (use-package alchemist
+;;;    :ensure t
+;;;    :config
+;;;    (setq alchemist-key-command-prefix (kbd "C-c ,")) ;; default is C-c a, which is org-agenda
+;;;    (add-to-list 'alchemist-mode-hook (lambda () (company-mode))))
 #+END_SRC
 ** clojure
 #+BEGIN_SRC emacs-lisp
@@ -899,6 +910,7 @@
     :ensure t
     :config
     (add-hook 'sgml-mode-hook 'emmet-mode)
+    (add-hook 'html-mode-hook 'emmet-mode)
     (add-hook 'css-mode-hook 'emmet-mode)
     (add-hook 'markdown-mode-hook 'emmet-mode)
     )
@@ -917,7 +929,7 @@
 #+END_SRC
 ** stylus
 #+BEGIN_SRC emacs-lisp
-  (use-package stylus-mode :ensure t)
+;;;  (use-package stylus-mode :ensure t)
 #+END_SRC
 ** markdown
 #+BEGIN_SRC emacs-lisp
@@ -965,7 +977,7 @@
 #+END_SRC
 ** slim
 #+BEGIN_SRC emacs-lisp
-  (use-package slim-mode :ensure t)
+;;;  (use-package slim-mode :ensure t)
 #+END_SRC
 
 ** grep

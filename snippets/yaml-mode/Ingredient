@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Ingredient
+# key: -i
+# --
+name: ${1:igredient name}
+quantity: ${2:number}
+units: ${3:units such as cups, tsp, large, 15-oz can, etc}
+prep: ${4:preparation notes}
