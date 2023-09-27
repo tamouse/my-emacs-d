@@ -1,7 +1,6 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Rails Controller Class
-# key: controller
+# -*- mode: snippet -*-
+# name: refute_nil
+# group: testing
+# key: rn
 # --
-class ${1:`(camelize-file-name)`} < ApplicationController
-$0
-end
+refute_nil ${1:actual}${2:, ${3:"OOPS, expected $1 to not be nil"}}

@@ -4,4 +4,4 @@
 # group: debugging
 # binding: direct-keybinding
 # --
-require 'pry-byebug';binding.pry
+binding.pry

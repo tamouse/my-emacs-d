@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: assert_equal
+# key: ae
+# group: testing
+# --
+assert_equal ${1:expected}, ${2:actual}${3:, %{${4:Oops! $2 is not equal to $1}}}

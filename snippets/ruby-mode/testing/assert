@@ -2,6 +2,6 @@
 # name: assert
 # key: as
 # binding: direct-keybinding
-# group: minitest assertions
+# group: testing
 # --
 assert ${1:expected}${2:, "${3:Oops!}"}

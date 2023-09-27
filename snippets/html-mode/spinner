@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Processing Spinner
+# key: spinner
+# group: wherefour
+# --
+<span class="wf-type-extra-small light-weight">
+  <i class="far fa-redo-alt fa-spin"></i> &nbsp; processing request
+</span>

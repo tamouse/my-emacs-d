@@ -1,0 +1,12 @@
+# key: obfm
+# name: obsidian front matter
+# --
+---
+publish: false
+tags: ${1:taglist}
+created: ${2:`(format-time-string "%FT%R")`}
+summary: $0
+---
+
+
+%% Waypoint %%

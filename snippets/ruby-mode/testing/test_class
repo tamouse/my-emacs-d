@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: test class
+# key: testclass
+# group: testing
+# --
+class ${1:Class}Test < ${2:ActiveSupport::TestCase}
+
+setup do
+$0
+end
+
+teardown do
+
+end
+
+test "${3:something}" do
+skip "SKIPPING: not written yet"
+end
+
+end

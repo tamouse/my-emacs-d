@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: assert_match
+# group: testing
+# key: am
+# --
+assert_match ${1:matcher}, ${2:obj}${3:, ${4:"OOP! expected $2 to match $1"}}
