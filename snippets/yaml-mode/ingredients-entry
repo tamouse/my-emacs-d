@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: ingredients-entry
+# key: -i
+# --
+name: ${1:name}
+quantity: ${2:quantity}
+units: ${3:units}
+prep: ${4:prep}
